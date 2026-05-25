@@ -218,7 +218,7 @@ function NeonButton({
     >
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_30px_rgba(124,58,237,0.4),0_0_40px_rgba(124,58,237,0.3)]" />
       <motion.div
-        className="absolute inset-0 opacity-0 group-hover:opacity-30"
+        className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent)] w-1/2"
         animate={{ x: ["-100%", "200%"] }}
         transition={{
           duration: 2,
@@ -226,7 +226,6 @@ function NeonButton({
           ease: "linear",
           repeatDelay: 1,
         }}
-        className="bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent)] w-1/2"
       />
       <span className="relative z-10 flex items-center gap-2">
         {loading && <Loader2 className="w-5 h-5 animate-spin" />}
