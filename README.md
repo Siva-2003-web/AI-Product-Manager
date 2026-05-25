@@ -206,7 +206,7 @@ Recommended Vercel settings:
 
 ## Notes
 
-- The root app uses `postinstall` to build before production start on hosts like Render.
+- The root app requires `npm run build` after dependency installation to produce `dist/server.cjs` for production hosts like Render.
 - The production server binds to `process.env.PORT` and `0.0.0.0`, which is required for Render.
 - The landing app uses MongoDB and JWT auth; those secrets should stay in the hosting dashboard, not in git.
 

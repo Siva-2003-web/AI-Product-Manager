@@ -39,13 +39,13 @@ Use the repository root as the service source.
 
 Render settings:
 
-- Build command: `NODE_OPTIONS=--max-old-space-size=3072 npm ci`
+- Build command: `NODE_OPTIONS=--max-old-space-size=3072 npm ci && NODE_OPTIONS=--max-old-space-size=3072 npm run build`
 - Start command: `node dist/server.cjs`
 - Health check path: `/api/health`
 
 ### Why this works
 
-The root package uses `postinstall` to run the production build during dependency installation, so `dist/server.cjs` is created before startup.
+The root package now keeps install and build separate, so Render must install dependencies and then run `npm run build` to generate `dist/server.cjs` before startup.
 
 ### Required Render environment variables
 
@@ -119,9 +119,8 @@ npm run build
 
 This means the production build did not run before startup. Check that:
 
-- `postinstall` is present in `package.json`
 - Render is using the latest commit
-- The build log shows `npm ci` completed successfully
+- The build log shows both `npm ci` and `npm run build` completed successfully
 
 ### Out of memory during build
 

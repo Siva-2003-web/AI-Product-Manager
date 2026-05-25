@@ -5,6 +5,6 @@ services:
     plan: starter
     branch: main
     autoDeployTrigger: commit
-    buildCommand: NODE_OPTIONS=--max-old-space-size=3072 npm ci
+    buildCommand: NODE_OPTIONS=--max-old-space-size=3072 npm ci && NODE_OPTIONS=--max-old-space-size=3072 npm run build
     startCommand: node dist/server.cjs
     healthCheckPath: /api/health
