@@ -9,7 +9,7 @@ import fs from "fs/promises";
 import { createProxyMiddleware } from "http-proxy-middleware";
 dotenv.config();
 
-const PORT = 3000;
+const PORT = parseInt(process.env.PORT || "3000", 10);
 
 // Initialize Google Gen AI server-side
 const ai = new GoogleGenAI({
