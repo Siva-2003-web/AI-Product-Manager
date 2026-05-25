@@ -104,32 +104,35 @@ async function startServer() {
   });
 
   // API Route: Transform product idea into planning system artifacts
-  app.post("/api/generate", express.json({ limit: "10mb" }), async (req, res) => {
-    try {
-      const { idea, artifactType, currentContext, extraDetails } = req.body;
+  app.post(
+    "/api/generate",
+    express.json({ limit: "10mb" }),
+    async (req, res) => {
+      try {
+        const { idea, artifactType, currentContext, extraDetails } = req.body;
 
-      if (!idea || !idea.trim()) {
-        res.status(400).json({ error: "Product idea is required" });
-        return;
-      }
+        if (!idea || !idea.trim()) {
+          res.status(400).json({ error: "Product idea is required" });
+          return;
+        }
 
-      if (!process.env.GEMINI_API_KEY) {
-        res.status(500).json({
-          error:
-            "GEMINI_API_KEY is not configured. Please add it to the Secrets panel in the Settings menu.",
-        });
-        return;
-      }
+        if (!process.env.GEMINI_API_KEY) {
+          res.status(500).json({
+            error:
+              "GEMINI_API_KEY is not configured. Please add it to the Secrets panel in the Settings menu.",
+          });
+          return;
+        }
 
-      // We'll use "gemini-3.5-flash" as the basic/complex text tasks model.
-      const modelName = "gemini-3.5-flash";
+        // We'll use "gemini-3.5-flash" as the basic/complex text tasks model.
+        const modelName = "gemini-3.5-flash";
 
-      let prompt = ``;
-      let systemInstruction = `You are an elite, multi-disciplinary Principal Product Manager, Systems Architect, Enterprise Business Analyst, and Software Development Lead.
+        let prompt = ``;
+        let systemInstruction = `You are an elite, multi-disciplinary Principal Product Manager, Systems Architect, Enterprise Business Analyst, and Software Development Lead.
 Your goal is to transform a raw product idea into detailed, hyper-realistic, production-ready product artifacts.`;
 
-      if (artifactType === "overview") {
-        prompt = `Analyze this product idea: "${idea}"
+        if (artifactType === "overview") {
+          prompt = `Analyze this product idea: "${idea}"
 Generate a structured JSON configuration containing high-level planning.
 Provide:
 1. elevatorPitch: A compelling 1-line elevator pitch.
@@ -153,102 +156,102 @@ Return ONLY a JSON object matching this TypeScript structure:
   "monetizationSuggestions": string[]
 }`;
 
-        const response = await ai.models.generateContent({
-          model: modelName,
-          contents: prompt,
-          config: {
-            systemInstruction,
-            responseMimeType: "application/json",
-            responseSchema: {
-              type: Type.OBJECT,
-              properties: {
-                elevatorPitch: { type: Type.STRING },
-                targetAudience: {
-                  type: Type.ARRAY,
-                  items: { type: Type.STRING },
-                },
-                coreValueProp: { type: Type.STRING },
-                modules: {
-                  type: Type.ARRAY,
-                  items: {
+          const response = await ai.models.generateContent({
+            model: modelName,
+            contents: prompt,
+            config: {
+              systemInstruction,
+              responseMimeType: "application/json",
+              responseSchema: {
+                type: Type.OBJECT,
+                properties: {
+                  elevatorPitch: { type: Type.STRING },
+                  targetAudience: {
+                    type: Type.ARRAY,
+                    items: { type: Type.STRING },
+                  },
+                  coreValueProp: { type: Type.STRING },
+                  modules: {
+                    type: Type.ARRAY,
+                    items: {
+                      type: Type.OBJECT,
+                      properties: {
+                        name: { type: Type.STRING },
+                        description: { type: Type.STRING },
+                        estimatedComplexity: { type: Type.STRING },
+                      },
+                      required: ["name", "description", "estimatedComplexity"],
+                    },
+                  },
+                  techStackSuggested: {
                     type: Type.OBJECT,
                     properties: {
-                      name: { type: Type.STRING },
-                      description: { type: Type.STRING },
-                      estimatedComplexity: { type: Type.STRING },
+                      frontend: { type: Type.STRING },
+                      backend: { type: Type.STRING },
+                      database: { type: Type.STRING },
+                      auth: { type: Type.STRING },
+                      hosting: { type: Type.STRING },
                     },
-                    required: ["name", "description", "estimatedComplexity"],
+                    required: [
+                      "frontend",
+                      "backend",
+                      "database",
+                      "auth",
+                      "hosting",
+                    ],
+                  },
+                  feasibilityScore: { type: Type.NUMBER },
+                  primaryChallenge: { type: Type.STRING },
+                  monetizationSuggestions: {
+                    type: Type.ARRAY,
+                    items: { type: Type.STRING },
                   },
                 },
-                techStackSuggested: {
-                  type: Type.OBJECT,
-                  properties: {
-                    frontend: { type: Type.STRING },
-                    backend: { type: Type.STRING },
-                    database: { type: Type.STRING },
-                    auth: { type: Type.STRING },
-                    hosting: { type: Type.STRING },
-                  },
-                  required: [
-                    "frontend",
-                    "backend",
-                    "database",
-                    "auth",
-                    "hosting",
-                  ],
-                },
-                feasibilityScore: { type: Type.NUMBER },
-                primaryChallenge: { type: Type.STRING },
-                monetizationSuggestions: {
-                  type: Type.ARRAY,
-                  items: { type: Type.STRING },
-                },
+                required: [
+                  "elevatorPitch",
+                  "targetAudience",
+                  "coreValueProp",
+                  "modules",
+                  "techStackSuggested",
+                  "feasibilityScore",
+                  "primaryChallenge",
+                  "monetizationSuggestions",
+                ],
               },
-              required: [
-                "elevatorPitch",
-                "targetAudience",
-                "coreValueProp",
-                "modules",
-                "techStackSuggested",
-                "feasibilityScore",
-                "primaryChallenge",
-                "monetizationSuggestions",
-              ],
             },
-          },
-        });
+          });
 
-        // Safely parse the model response. Some model outputs may include
-        // trailing commentary or be malformed JSON; attempt a best-effort
-        // parse and fall back to returning the raw text for debugging.
-        let parsedOutput: any = null;
-        const raw = response.text || "";
-        try {
-          parsedOutput = JSON.parse(raw || "{}");
-        } catch (err) {
-          console.warn("Gemini response JSON parse failed:", err);
-          // Try to extract a JSON substring between first '{' and last '}'
+          // Safely parse the model response. Some model outputs may include
+          // trailing commentary or be malformed JSON; attempt a best-effort
+          // parse and fall back to returning the raw text for debugging.
+          let parsedOutput: any = null;
+          const raw = response.text || "";
           try {
-            const first = raw.indexOf("{");
-            const last = raw.lastIndexOf("}");
-            if (first !== -1 && last !== -1 && last > first) {
-              const candidate = raw.substring(first, last + 1);
-              parsedOutput = JSON.parse(candidate);
-            } else {
+            parsedOutput = JSON.parse(raw || "{}");
+          } catch (err) {
+            console.warn("Gemini response JSON parse failed:", err);
+            // Try to extract a JSON substring between first '{' and last '}'
+            try {
+              const first = raw.indexOf("{");
+              const last = raw.lastIndexOf("}");
+              if (first !== -1 && last !== -1 && last > first) {
+                const candidate = raw.substring(first, last + 1);
+                parsedOutput = JSON.parse(candidate);
+              } else {
+                parsedOutput = { _raw: raw };
+              }
+            } catch (err2) {
+              console.warn("Fallback JSON extraction failed:", err2);
               parsedOutput = { _raw: raw };
             }
-          } catch (err2) {
-            console.warn("Fallback JSON extraction failed:", err2);
-            parsedOutput = { _raw: raw };
           }
+
+          res.json({ output: parsedOutput });
+          return;
         }
 
-        res.json({ output: parsedOutput });
-        return;
-      }
-
-      if (artifactType === "prd") {
-        prompt = `Generate a highly professional Product Requirements Document (PRD) for the product idea: "${idea}"
+        if (artifactType === "prd") {
+          prompt = `Generate a highly professional Product Requirements Document (PRD) for the product idea: "${idea}"
 Context: ${JSON.stringify(currentContext || {})}
 Extra input details: ${extraDetails || "None"}
 
@@ -263,18 +266,18 @@ Please structure the PRD beautifully in Markdown. Make sure to cover:
 
 Be detailed, technical, realistic and thorough. Do not use generic placeholders.`;
 
-        const response = await ai.models.generateContent({
-          model: modelName,
-          contents: prompt,
-          config: { systemInstruction },
-        });
+          const response = await ai.models.generateContent({
+            model: modelName,
+            contents: prompt,
+            config: { systemInstruction },
+          });
 
-        res.json({ output: response.text });
-        return;
-      }
+          res.json({ output: response.text });
+          return;
+        }
 
-      if (artifactType === "userStories") {
-        prompt = `Generate a sequence of Sprint Plans and User Stories for: "${idea}"
+        if (artifactType === "userStories") {
+          prompt = `Generate a sequence of Sprint Plans and User Stories for: "${idea}"
 Context: ${JSON.stringify(currentContext || {})}
 Extra inputs: ${extraDetails || "None"}
 
@@ -310,62 +313,62 @@ Array<{
   }>
 }>`;
 
-        const response = await ai.models.generateContent({
-          model: modelName,
-          contents: prompt,
-          config: {
-            systemInstruction,
-            responseMimeType: "application/json",
-            responseSchema: {
-              type: Type.ARRAY,
-              items: {
-                type: Type.OBJECT,
-                properties: {
-                  sprintName: { type: Type.STRING },
-                  focus: { type: Type.STRING },
-                  stories: {
-                    type: Type.ARRAY,
-                    items: {
-                      type: Type.OBJECT,
-                      properties: {
-                        id: { type: Type.STRING },
-                        title: { type: Type.STRING },
-                        role: { type: Type.STRING },
-                        want: { type: Type.STRING },
-                        benefit: { type: Type.STRING },
-                        priority: { type: Type.STRING },
-                        storyPoints: { type: Type.NUMBER },
-                        acceptanceCriteria: {
-                          type: Type.ARRAY,
-                          items: { type: Type.STRING },
+          const response = await ai.models.generateContent({
+            model: modelName,
+            contents: prompt,
+            config: {
+              systemInstruction,
+              responseMimeType: "application/json",
+              responseSchema: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    sprintName: { type: Type.STRING },
+                    focus: { type: Type.STRING },
+                    stories: {
+                      type: Type.ARRAY,
+                      items: {
+                        type: Type.OBJECT,
+                        properties: {
+                          id: { type: Type.STRING },
+                          title: { type: Type.STRING },
+                          role: { type: Type.STRING },
+                          want: { type: Type.STRING },
+                          benefit: { type: Type.STRING },
+                          priority: { type: Type.STRING },
+                          storyPoints: { type: Type.NUMBER },
+                          acceptanceCriteria: {
+                            type: Type.ARRAY,
+                            items: { type: Type.STRING },
+                          },
+                          notes: { type: Type.STRING },
                         },
-                        notes: { type: Type.STRING },
+                        required: [
+                          "id",
+                          "title",
+                          "role",
+                          "want",
+                          "benefit",
+                          "priority",
+                          "storyPoints",
+                          "acceptanceCriteria",
+                        ],
                       },
-                      required: [
-                        "id",
-                        "title",
-                        "role",
-                        "want",
-                        "benefit",
-                        "priority",
-                        "storyPoints",
-                        "acceptanceCriteria",
-                      ],
                     },
                   },
+                  required: ["sprintName", "focus", "stories"],
                 },
-                required: ["sprintName", "focus", "stories"],
               },
             },
-          },
-        });
+          });
 
-        res.json({ output: JSON.parse(response.text || "[]") });
-        return;
-      }
+          res.json({ output: JSON.parse(response.text || "[]") });
+          return;
+        }
 
-      if (artifactType === "databaseSchema") {
-        prompt = `Generate a Database Schema (Data Models and Relationships) for: "${idea}"
+        if (artifactType === "databaseSchema") {
+          prompt = `Generate a Database Schema (Data Models and Relationships) for: "${idea}"
 Context: ${JSON.stringify(currentContext || {})}
 Extra inputs: ${extraDetails || "None"}
 
@@ -387,78 +390,78 @@ Structure needed:
 
 Return ONLY a JSON matching the requested schema.`;
 
-        const response = await ai.models.generateContent({
-          model: modelName,
-          contents: prompt,
-          config: {
-            systemInstruction,
-            responseMimeType: "application/json",
-            responseSchema: {
-              type: Type.OBJECT,
-              properties: {
-                databaseParadigm: { type: Type.STRING },
-                tables: {
-                  type: Type.ARRAY,
-                  items: {
-                    type: Type.OBJECT,
-                    properties: {
-                      tableName: { type: Type.STRING },
-                      description: { type: Type.STRING },
-                      fields: {
-                        type: Type.ARRAY,
-                        items: {
-                          type: Type.OBJECT,
-                          properties: {
-                            name: { type: Type.STRING },
-                            type: { type: Type.STRING },
-                            constraints: { type: Type.STRING },
-                            description: { type: Type.STRING },
+          const response = await ai.models.generateContent({
+            model: modelName,
+            contents: prompt,
+            config: {
+              systemInstruction,
+              responseMimeType: "application/json",
+              responseSchema: {
+                type: Type.OBJECT,
+                properties: {
+                  databaseParadigm: { type: Type.STRING },
+                  tables: {
+                    type: Type.ARRAY,
+                    items: {
+                      type: Type.OBJECT,
+                      properties: {
+                        tableName: { type: Type.STRING },
+                        description: { type: Type.STRING },
+                        fields: {
+                          type: Type.ARRAY,
+                          items: {
+                            type: Type.OBJECT,
+                            properties: {
+                              name: { type: Type.STRING },
+                              type: { type: Type.STRING },
+                              constraints: { type: Type.STRING },
+                              description: { type: Type.STRING },
+                            },
+                            required: ["name", "type", "description"],
                           },
-                          required: ["name", "type", "description"],
+                        },
+                        primaryKey: { type: Type.STRING },
+                        foreignKeys: {
+                          type: Type.ARRAY,
+                          items: {
+                            type: Type.OBJECT,
+                            properties: {
+                              field: { type: Type.STRING },
+                              referencesTable: { type: Type.STRING },
+                              referencesField: { type: Type.STRING },
+                            },
+                            required: [
+                              "field",
+                              "referencesTable",
+                              "referencesField",
+                            ],
+                          },
+                        },
+                        indexes: {
+                          type: Type.ARRAY,
+                          items: { type: Type.STRING },
                         },
                       },
-                      primaryKey: { type: Type.STRING },
-                      foreignKeys: {
-                        type: Type.ARRAY,
-                        items: {
-                          type: Type.OBJECT,
-                          properties: {
-                            field: { type: Type.STRING },
-                            referencesTable: { type: Type.STRING },
-                            referencesField: { type: Type.STRING },
-                          },
-                          required: [
-                            "field",
-                            "referencesTable",
-                            "referencesField",
-                          ],
-                        },
-                      },
-                      indexes: {
-                        type: Type.ARRAY,
-                        items: { type: Type.STRING },
-                      },
+                      required: ["tableName", "description", "fields"],
                     },
-                    required: ["tableName", "description", "fields"],
                   },
+                  relationshipsDescription: { type: Type.STRING },
                 },
-                relationshipsDescription: { type: Type.STRING },
+                required: [
+                  "databaseParadigm",
+                  "tables",
+                  "relationshipsDescription",
+                ],
               },
-              required: [
-                "databaseParadigm",
-                "tables",
-                "relationshipsDescription",
-              ],
             },
-          },
-        });
+          });
 
-        res.json({ output: JSON.parse(response.text || "{}") });
-        return;
-      }
+          res.json({ output: JSON.parse(response.text || "{}") });
+          return;
+        }
 
-      if (artifactType === "uiWireframe") {
-        prompt = `Generate a UI Wireframe layout config and detailed concept for: "${idea}"
+        if (artifactType === "uiWireframe") {
+          prompt = `Generate a UI Wireframe layout config and detailed concept for: "${idea}"
 Context: ${JSON.stringify(currentContext || {})}
 Extra details: ${extraDetails || "None"}
 
@@ -488,66 +491,66 @@ Return ONLY a JSON object matching this structure:
   }>
 }`;
 
-        const response = await ai.models.generateContent({
-          model: modelName,
-          contents: prompt,
-          config: {
-            systemInstruction,
-            responseMimeType: "application/json",
-            responseSchema: {
-              type: Type.OBJECT,
-              properties: {
-                screenName: { type: Type.STRING },
-                UXHighlights: {
-                  type: Type.ARRAY,
-                  items: { type: Type.STRING },
-                },
-                layoutRows: {
-                  type: Type.ARRAY,
-                  items: {
-                    type: Type.OBJECT,
-                    properties: {
-                      rowId: { type: Type.STRING },
-                      colSpan: { type: Type.NUMBER },
-                      elements: {
-                        type: Type.ARRAY,
-                        items: {
-                          type: Type.OBJECT,
-                          properties: {
-                            id: { type: Type.STRING },
-                            type: { type: Type.STRING },
-                            label: { type: Type.STRING },
-                            widthSpan: { type: Type.NUMBER },
-                            heightPx: { type: Type.NUMBER },
-                            placeholderText: { type: Type.STRING },
-                            purpose: { type: Type.STRING },
+          const response = await ai.models.generateContent({
+            model: modelName,
+            contents: prompt,
+            config: {
+              systemInstruction,
+              responseMimeType: "application/json",
+              responseSchema: {
+                type: Type.OBJECT,
+                properties: {
+                  screenName: { type: Type.STRING },
+                  UXHighlights: {
+                    type: Type.ARRAY,
+                    items: { type: Type.STRING },
+                  },
+                  layoutRows: {
+                    type: Type.ARRAY,
+                    items: {
+                      type: Type.OBJECT,
+                      properties: {
+                        rowId: { type: Type.STRING },
+                        colSpan: { type: Type.NUMBER },
+                        elements: {
+                          type: Type.ARRAY,
+                          items: {
+                            type: Type.OBJECT,
+                            properties: {
+                              id: { type: Type.STRING },
+                              type: { type: Type.STRING },
+                              label: { type: Type.STRING },
+                              widthSpan: { type: Type.NUMBER },
+                              heightPx: { type: Type.NUMBER },
+                              placeholderText: { type: Type.STRING },
+                              purpose: { type: Type.STRING },
+                            },
+                            required: [
+                              "id",
+                              "type",
+                              "label",
+                              "widthSpan",
+                              "heightPx",
+                              "purpose",
+                            ],
                           },
-                          required: [
-                            "id",
-                            "type",
-                            "label",
-                            "widthSpan",
-                            "heightPx",
-                            "purpose",
-                          ],
                         },
                       },
+                      required: ["rowId", "colSpan", "elements"],
                     },
-                    required: ["rowId", "colSpan", "elements"],
                   },
                 },
+                required: ["screenName", "UXHighlights", "layoutRows"],
               },
-              required: ["screenName", "UXHighlights", "layoutRows"],
             },
-          },
-        });
+          });
 
-        res.json({ output: JSON.parse(response.text || "{}") });
-        return;
-      }
+          res.json({ output: JSON.parse(response.text || "{}") });
+          return;
+        }
 
-      if (artifactType === "apiStructure") {
-        prompt = `Generate a RESTful API Endpoint Structure and Specification for: "${idea}"
+        if (artifactType === "apiStructure") {
+          prompt = `Generate a RESTful API Endpoint Structure and Specification for: "${idea}"
 Context: ${JSON.stringify(currentContext || {})}
 Extra details: ${extraDetails || "None"}
 
@@ -579,64 +582,69 @@ Return ONLY JSON matching this structure:
   }>
 }`;
 
-        const response = await ai.models.generateContent({
-          model: modelName,
-          contents: prompt,
-          config: {
-            systemInstruction,
-            responseMimeType: "application/json",
-            responseSchema: {
-              type: Type.OBJECT,
-              properties: {
-                baseUrl: { type: Type.STRING },
-                endpoints: {
-                  type: Type.ARRAY,
-                  items: {
-                    type: Type.OBJECT,
-                    properties: {
-                      id: { type: Type.STRING },
-                      method: { type: Type.STRING },
-                      path: { type: Type.STRING },
-                      description: { type: Type.STRING },
-                      authenticationRequired: { type: Type.BOOLEAN },
-                      queryParams: {
-                        type: Type.ARRAY,
-                        items: {
-                          type: Type.OBJECT,
-                          properties: {
-                            name: { type: Type.STRING },
-                            type: { type: Type.STRING },
-                            description: { type: Type.STRING },
-                            required: { type: Type.BOOLEAN },
+          const response = await ai.models.generateContent({
+            model: modelName,
+            contents: prompt,
+            config: {
+              systemInstruction,
+              responseMimeType: "application/json",
+              responseSchema: {
+                type: Type.OBJECT,
+                properties: {
+                  baseUrl: { type: Type.STRING },
+                  endpoints: {
+                    type: Type.ARRAY,
+                    items: {
+                      type: Type.OBJECT,
+                      properties: {
+                        id: { type: Type.STRING },
+                        method: { type: Type.STRING },
+                        path: { type: Type.STRING },
+                        description: { type: Type.STRING },
+                        authenticationRequired: { type: Type.BOOLEAN },
+                        queryParams: {
+                          type: Type.ARRAY,
+                          items: {
+                            type: Type.OBJECT,
+                            properties: {
+                              name: { type: Type.STRING },
+                              type: { type: Type.STRING },
+                              description: { type: Type.STRING },
+                              required: { type: Type.BOOLEAN },
+                            },
+                            required: [
+                              "name",
+                              "type",
+                              "description",
+                              "required",
+                            ],
                           },
-                          required: ["name", "type", "description", "required"],
                         },
+                        requestBody: { type: Type.STRING },
+                        successResponse: { type: Type.STRING },
                       },
-                      requestBody: { type: Type.STRING },
-                      successResponse: { type: Type.STRING },
+                      required: [
+                        "id",
+                        "method",
+                        "path",
+                        "description",
+                        "authenticationRequired",
+                        "successResponse",
+                      ],
                     },
-                    required: [
-                      "id",
-                      "method",
-                      "path",
-                      "description",
-                      "authenticationRequired",
-                      "successResponse",
-                    ],
                   },
                 },
+                required: ["baseUrl", "endpoints"],
               },
-              required: ["baseUrl", "endpoints"],
             },
-          },
-        });
+          });
 
-        res.json({ output: JSON.parse(response.text || "{}") });
-        return;
-      }
+          res.json({ output: JSON.parse(response.text || "{}") });
+          return;
+        }
 
-      if (artifactType === "developmentRoadmap") {
-        prompt = `Generate a modern vertical Development Roadmap timeline for: "${idea}"
+        if (artifactType === "developmentRoadmap") {
+          prompt = `Generate a modern vertical Development Roadmap timeline for: "${idea}"
 Context: ${JSON.stringify(currentContext || {})}
 Extra inputs: ${extraDetails || "None"}
 
@@ -653,55 +661,55 @@ Array<{
 
 Return ONLY a JSON matching the requested structure.`;
 
-        const response = await ai.models.generateContent({
-          model: modelName,
-          contents: prompt,
-          config: {
-            systemInstruction,
-            responseMimeType: "application/json",
-            responseSchema: {
-              type: Type.ARRAY,
-              items: {
-                type: Type.OBJECT,
-                properties: {
-                  phaseNumber: { type: Type.NUMBER },
-                  phaseTitle: { type: Type.STRING },
-                  durationWeeks: { type: Type.STRING },
-                  milestone: { type: Type.STRING },
-                  coreObjectives: {
-                    type: Type.ARRAY,
-                    items: { type: Type.STRING },
+          const response = await ai.models.generateContent({
+            model: modelName,
+            contents: prompt,
+            config: {
+              systemInstruction,
+              responseMimeType: "application/json",
+              responseSchema: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    phaseNumber: { type: Type.NUMBER },
+                    phaseTitle: { type: Type.STRING },
+                    durationWeeks: { type: Type.STRING },
+                    milestone: { type: Type.STRING },
+                    coreObjectives: {
+                      type: Type.ARRAY,
+                      items: { type: Type.STRING },
+                    },
+                    detailedTasks: {
+                      type: Type.ARRAY,
+                      items: { type: Type.STRING },
+                    },
+                    readinessCriteria: {
+                      type: Type.ARRAY,
+                      items: { type: Type.STRING },
+                    },
                   },
-                  detailedTasks: {
-                    type: Type.ARRAY,
-                    items: { type: Type.STRING },
-                  },
-                  readinessCriteria: {
-                    type: Type.ARRAY,
-                    items: { type: Type.STRING },
-                  },
+                  required: [
+                    "phaseNumber",
+                    "phaseTitle",
+                    "durationWeeks",
+                    "milestone",
+                    "coreObjectives",
+                    "detailedTasks",
+                    "readinessCriteria",
+                  ],
                 },
-                required: [
-                  "phaseNumber",
-                  "phaseTitle",
-                  "durationWeeks",
-                  "milestone",
-                  "coreObjectives",
-                  "detailedTasks",
-                  "readinessCriteria",
-                ],
               },
             },
-          },
-        });
+          });
 
-        res.json({ output: JSON.parse(response.text || "[]") });
-        return;
-      }
+          res.json({ output: JSON.parse(response.text || "[]") });
+          return;
+        }
 
-      if (artifactType === "starterCode") {
-        // Here we'll generate realistic Express.ts or Python Fast API starter code matching the product context
-        prompt = `You are a Principal Software Engineer.
+        if (artifactType === "starterCode") {
+          // Here we'll generate realistic Express.ts or Python Fast API starter code matching the product context
+          prompt = `You are a Principal Software Engineer.
 Generate three primary code files as professional starter code for: "${idea}"
 Context: ${JSON.stringify(currentContext || {})}
 Extra details (e.g. language or frameworks): ${extraDetails || "Standard Node/TypeScript backend & React mockup"}
@@ -723,55 +731,56 @@ Return ONLY a JSON object of this structure:
   }>
 }`;
 
-        const response = await ai.models.generateContent({
-          model: modelName,
-          contents: prompt,
-          config: {
-            systemInstruction,
-            responseMimeType: "application/json",
-            responseSchema: {
-              type: Type.OBJECT,
-              properties: {
-                starterFiles: {
-                  type: Type.ARRAY,
-                  items: {
-                    type: Type.OBJECT,
-                    properties: {
-                      filePath: { type: Type.STRING },
-                      language: { type: Type.STRING },
-                      codeDescription: { type: Type.STRING },
-                      codeContent: { type: Type.STRING },
+          const response = await ai.models.generateContent({
+            model: modelName,
+            contents: prompt,
+            config: {
+              systemInstruction,
+              responseMimeType: "application/json",
+              responseSchema: {
+                type: Type.OBJECT,
+                properties: {
+                  starterFiles: {
+                    type: Type.ARRAY,
+                    items: {
+                      type: Type.OBJECT,
+                      properties: {
+                        filePath: { type: Type.STRING },
+                        language: { type: Type.STRING },
+                        codeDescription: { type: Type.STRING },
+                        codeContent: { type: Type.STRING },
+                      },
+                      required: [
+                        "filePath",
+                        "language",
+                        "codeDescription",
+                        "codeContent",
+                      ],
                     },
-                    required: [
-                      "filePath",
-                      "language",
-                      "codeDescription",
-                      "codeContent",
-                    ],
                   },
                 },
+                required: ["starterFiles"],
               },
-              required: ["starterFiles"],
             },
-          },
+          });
+
+          res.json({ output: JSON.parse(response.text || "{}") });
+          return;
+        }
+
+        res
+          .status(400)
+          .json({ error: `Unsupported artifactType: ${artifactType}` });
+      } catch (err: any) {
+        console.error("Gemini Generation Error:", err);
+        res.status(500).json({
+          error:
+            err.message ||
+            "An unexpected error occurred during planning orchestration.",
         });
-
-        res.json({ output: JSON.parse(response.text || "{}") });
-        return;
       }
-
-      res
-        .status(400)
-        .json({ error: `Unsupported artifactType: ${artifactType}` });
-    } catch (err: any) {
-      console.error("Gemini Generation Error:", err);
-      res.status(500).json({
-        error:
-          err.message ||
-          "An unexpected error occurred during planning orchestration.",
-      });
-    }
-  });
+    },
+  );
 
   // --- REVERSE PROXY FOR NEXT.JS LANDING PAGE ---
   const nextProxy = createProxyMiddleware({

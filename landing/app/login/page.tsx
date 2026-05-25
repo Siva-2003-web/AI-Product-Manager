@@ -36,11 +36,12 @@ function ParticleField() {
             top: `${p.y}%`,
             width: p.size,
             height: p.size,
-            background: p.id % 3 === 0
-              ? "rgba(124, 58, 237, 0.6)"
-              : p.id % 3 === 1
-              ? "rgba(56, 189, 248, 0.5)"
-              : "rgba(167, 139, 250, 0.4)",
+            background:
+              p.id % 3 === 0
+                ? "rgba(124, 58, 237, 0.6)"
+                : p.id % 3 === 1
+                  ? "rgba(56, 189, 248, 0.5)"
+                  : "rgba(167, 139, 250, 0.4)",
           }}
           animate={{
             y: [0, -200, -400],
@@ -95,7 +96,10 @@ function FloatingShapes() {
         animate={{ y: [0, -30, 0], rotate: [0, 180, 360] }}
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-[15%] left-[10%] w-16 h-16 border border-purple-500/20 rotate-45"
-        style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
+        style={{
+          clipPath:
+            "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
+        }}
       />
       {/* Circle ring */}
       <motion.div
@@ -124,7 +128,12 @@ function FloatingShapes() {
       />
       <motion.div
         animate={{ scale: [1, 1.5, 1], opacity: [0.2, 0.5, 0.2] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
         className="absolute top-[20%] right-[30%] w-2 h-2 rounded-full bg-cyan-400/30"
       />
     </div>
@@ -160,7 +169,8 @@ function QuantumNetwork() {
         transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
         className="absolute inset-[20%] rounded-full border border-cyan-500/10"
         style={{
-          boxShadow: "0 0 25px rgba(56, 189, 248, 0.05), inset 0 0 25px rgba(56, 189, 248, 0.05)"
+          boxShadow:
+            "0 0 25px rgba(56, 189, 248, 0.05), inset 0 0 25px rgba(56, 189, 248, 0.05)",
         }}
       />
 
@@ -172,13 +182,16 @@ function QuantumNetwork() {
       />
 
       {/* Futuristic Grid Nodes */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 400">
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        viewBox="0 0 400 400"
+      >
         {/* Neural Pathways (lines to center 200, 200) */}
         {[
           { x: 80, y: 120, label: "SECURE" },
           { x: 320, y: 100, label: "AUTH" },
           { x: 70, y: 280, label: "SYNC" },
-          { x: 330, y: 260, label: "ENCRYPT" }
+          { x: 330, y: 260, label: "ENCRYPT" },
         ].map((node, i) => (
           <g key={i}>
             {/* Pathway Line */}
@@ -204,13 +217,13 @@ function QuantumNetwork() {
               animate={{
                 x1: [node.x, 200],
                 y1: [node.y, 200],
-                opacity: [0, 1, 0]
+                opacity: [0, 1, 0],
               }}
               transition={{
                 duration: 2.5,
                 repeat: Infinity,
                 delay: i * 0.6,
-                ease: "easeInOut"
+                ease: "easeInOut",
               }}
             />
             {/* Outer Node Circle */}
@@ -260,7 +273,8 @@ function QuantumNetwork() {
       <div
         className="relative z-10 w-20 h-20 rounded-2xl flex items-center justify-center border border-emerald-500/40"
         style={{
-          background: "linear-gradient(135deg, rgba(52, 211, 153, 0.15), rgba(56, 189, 248, 0.1))",
+          background:
+            "linear-gradient(135deg, rgba(52, 211, 153, 0.15), rgba(56, 189, 248, 0.1))",
           boxShadow: "0 0 35px rgba(52, 211, 153, 0.25)",
         }}
       >
@@ -321,7 +335,8 @@ function NeonInput({
             transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
             className="absolute inset-0 rounded-xl"
             style={{
-              background: "linear-gradient(135deg, #7C3AED, #38BDF8, #A78BFA, #7C3AED)",
+              background:
+                "linear-gradient(135deg, #7C3AED, #38BDF8, #A78BFA, #7C3AED)",
               backgroundSize: "300% 300%",
             }}
           />
@@ -333,11 +348,12 @@ function NeonInput({
           className={`relative w-full px-4 py-3.5 rounded-xl text-base text-white placeholder:text-slate-500 transition-all duration-300
             bg-[#1a1a3e]/80 backdrop-blur-sm border
             focus:outline-none focus:ring-0
-            ${error
-              ? "border-rose-500/70"
-              : focused
-              ? "border-transparent"
-              : "border-slate-700/50 hover:border-slate-600/60"
+            ${
+              error
+                ? "border-rose-500/70"
+                : focused
+                  ? "border-transparent"
+                  : "border-slate-700/50 hover:border-slate-600/60"
             }`}
           {...props}
         />
@@ -368,29 +384,25 @@ function NeonButton({
     <motion.button
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className="relative w-full py-4 rounded-xl font-semibold text-white text-lg cursor-pointer transition-all duration-300 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center gap-2"
-      style={{
-        background: "linear-gradient(135deg, #7C3AED, #6D28D9)",
-      }}
+      className="relative w-full py-4 rounded-xl font-semibold text-white text-lg cursor-pointer transition-all duration-300 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center gap-2 bg-[linear-gradient(135deg,#7C3AED,#6D28D9)]"
       disabled={loading}
       {...props}
     >
       {/* Glow effect */}
       <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          boxShadow: "inset 0 0 30px rgba(124, 58, 237, 0.4), 0 0 40px rgba(124, 58, 237, 0.3)",
-        }}
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_30px_rgba(124,58,237,0.4),0_0_40px_rgba(124,58,237,0.3)]"
       />
       {/* Shimmer sweep */}
       <motion.div
         className="absolute inset-0 opacity-0 group-hover:opacity-30"
         animate={{ x: ["-100%", "200%"] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "linear", repeatDelay: 1 }}
-        style={{
-          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
-          width: "50%",
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "linear",
+          repeatDelay: 1,
         }}
+        className="bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent)] w-1/2"
       />
       <span className="relative z-10 flex items-center gap-2">
         {loading && <Loader2 className="w-5 h-5 animate-spin" />}
@@ -435,12 +447,17 @@ export default function LoginPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setServerError(data.error || "Login failed.");
+        const message =
+          typeof data?.error === "string"
+            ? data.error
+            : data?.error?.message || "Login failed.";
+        setServerError(message);
         return;
       }
-      const dashboardUrl = typeof window !== "undefined" && window.location.port === "3001"
-        ? `http://${window.location.hostname}:3000/dashboard`
-        : "/dashboard";
+      const dashboardUrl =
+        typeof window !== "undefined" && window.location.port === "3001"
+          ? `http://${window.location.hostname}:3000/dashboard`
+          : "/dashboard";
       window.location.href = dashboardUrl;
     } catch {
       setServerError("Network error. Please try again.");
@@ -453,8 +470,7 @@ export default function LoginPage() {
 
   return (
     <div
-      className="min-h-screen flex relative overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #0a0a1a 0%, #0f0f2e 40%, #0a0a1a 100%)" }}
+      className="min-h-screen flex relative overflow-hidden bg-[linear-gradient(135deg,#0a0a1a_0%,#0f0f2e_40%,#0a0a1a_100%)]"
     >
       {/* Background effects */}
       <ParticleField />
@@ -465,24 +481,22 @@ export default function LoginPage() {
       <motion.div
         animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.25, 0.15] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full"
-        style={{ background: "radial-gradient(circle, rgba(124,58,237,0.2), transparent 70%)" }}
+        className="absolute top-[-20%] left-[-10%] w-150 h-150 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.2),transparent_70%)]"
       />
       <motion.div
         animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.2, 0.1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute bottom-[-20%] right-[-10%] w-[700px] h-[700px] rounded-full"
-        style={{ background: "radial-gradient(circle, rgba(56,189,248,0.15), transparent 70%)" }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
+        className="absolute bottom-[-20%] right-[-10%] w-175 h-175 rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.15),transparent_70%)]"
       />
 
       {/* Grid overlay */}
       <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(124,58,237,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.3) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
+        className="absolute inset-0 opacity-[0.04] pointer-events-none bg-[linear-gradient(rgba(124,58,237,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(124,58,237,0.3)_1px,transparent_1px)] bg-size-[60px_60px]"
       />
 
       {/* ─── LEFT: Visual Panel ─── */}
@@ -507,11 +521,7 @@ export default function LoginPage() {
             Access your
             <br />
             <span
-              className="bg-clip-text text-transparent"
-              style={{
-                backgroundImage:
-                  "linear-gradient(90deg, #34D399, #38BDF8)",
-              }}
+              className="bg-[linear-gradient(90deg,#34D399,#38BDF8)] bg-clip-text text-transparent"
             >
               command center.
             </span>
@@ -522,7 +532,8 @@ export default function LoginPage() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-slate-400 text-lg leading-relaxed mb-10"
           >
-            Enter your credentials to connect with your autonomous AI development squad and monitor active builds.
+            Enter your credentials to connect with your autonomous AI
+            development squad and monitor active builds.
           </motion.p>
 
           {/* Quantum connection network */}
@@ -534,10 +545,7 @@ export default function LoginPage() {
             <QuantumNetwork />
           </motion.div>
         </div>
-      </div>
-
-      {/* ─── RIGHT: Form Panel ─── */}
-      <div className="flex-1 flex items-center justify-center p-6 sm:p-10 relative z-10">
+            className="absolute -inset-1 rounded-3xl opacity-30 blur-xl bg-[linear-gradient(135deg,rgba(52,211,153,0.3),rgba(56,189,248,0.2))]"
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -545,20 +553,10 @@ export default function LoginPage() {
           className="w-full max-w-md"
         >
           {/* Card outer glow */}
-          <div
-            className="absolute -inset-1 rounded-3xl opacity-30 blur-xl"
-            style={{
-              background: "linear-gradient(135deg, rgba(52,211,153,0.3), rgba(56,189,248,0.2))",
-            }}
-          />
+          <div className="absolute -inset-1 rounded-3xl opacity-30 blur-xl bg-[linear-gradient(135deg,rgba(52,211,153,0.3),rgba(56,189,248,0.2))]" />
 
           {/* Glassmorphism card */}
-          <div
-            className="relative rounded-3xl border border-white/10 p-8 sm:p-10 backdrop-blur-xl"
-            style={{
-              background: "linear-gradient(135deg, rgba(15,15,40,0.85), rgba(20,20,50,0.9))",
-            }}
-          >
+          <div className="relative rounded-3xl border border-white/10 p-8 sm:p-10 backdrop-blur-xl bg-[linear-gradient(135deg,rgba(15,15,40,0.85),rgba(20,20,50,0.9))]">
             {/* Mobile Back to Home */}
             <div className="lg:hidden mb-6">
               <Link
@@ -569,10 +567,7 @@ export default function LoginPage() {
                 Back to Home
               </Link>
             </div>
-
-            {/* Heading */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              className="relative rounded-3xl border border-white/10 p-8 sm:p-10 backdrop-blur-xl bg-[linear-gradient(135deg,rgba(15,15,40,0.85),rgba(20,20,50,0.9))]"
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="mb-8"
@@ -585,140 +580,141 @@ export default function LoginPage() {
               </p>
             </motion.div>
 
-          {/* Server error */}
-          <AnimatePresence>
-            {serverError && (
+            {/* Server error */}
+            <AnimatePresence>
+              {serverError && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10, height: 0 }}
+                  animate={{ opacity: 1, y: 0, height: "auto" }}
+                  exit={{ opacity: 0, y: -10, height: 0 }}
+                  className="mb-6 p-3 rounded-xl border text-sm bg-rose-500/10 border-rose-500/30 text-rose-400"
+                >
+                  {serverError}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-5">
               <motion.div
-                initial={{ opacity: 0, y: -10, height: 0 }}
-                animate={{ opacity: 1, y: 0, height: "auto" }}
-                exit={{ opacity: 0, y: -10, height: 0 }}
-                className="mb-6 p-3 rounded-xl border text-sm"
-                style={{
-                  background: "rgba(244,63,94,0.1)",
-                  borderColor: "rgba(244,63,94,0.3)",
-                  color: "#fb7185",
-                }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
               >
-                {serverError}
+                <NeonInput
+                  label="Email"
+                  type="email"
+                  placeholder="jane@company.com"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  error={errors.email}
+                  autoComplete="email"
+                />
               </motion.div>
-            )}
-          </AnimatePresence>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <NeonInput
-                label="Email"
-                type="email"
-                placeholder="jane@company.com"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                error={errors.email}
-                autoComplete="email"
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5 }}
-              className="relative"
-            >
-              <NeonInput
-                label="Password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
-                value={form.password}
-                onChange={(e) => setForm({ ...form, password: e.target.value })}
-                error={errors.password}
-                autoComplete="current-password"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-[38px] text-slate-500 hover:text-slate-300 cursor-pointer transition-colors duration-200"
-                aria-label={showPassword ? "Hide password" : "Show password"}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5 }}
+                className="relative"
               >
-                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-              </button>
-            </motion.div>
+                <NeonInput
+                  label="Password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={form.password}
+                  onChange={(e) =>
+                    setForm({ ...form, password: e.target.value })
+                  }
+                  error={errors.password}
+                  autoComplete="current-password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-9.5 text-slate-500 hover:text-slate-300 cursor-pointer transition-colors duration-200"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
+              </motion.div>
 
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                className="flex items-center justify-between"
+              >
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    className="w-4 h-4 rounded bg-slate-800 border-slate-600 text-purple-500 focus:ring-purple-500/50 cursor-pointer"
+                  />
+                  <span className="text-sm text-slate-400">Remember me</span>
+                </label>
+                <a
+                  href="#"
+                  className="text-sm text-purple-400 hover:text-purple-300 cursor-pointer transition-colors duration-200"
+                >
+                  Forgot password?
+                </a>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+              >
+                <NeonButton type="submit" loading={loading}>
+                  Log In
+                  <ArrowRight className="w-5 h-5" />
+                </NeonButton>
+              </motion.div>
+            </form>
+
+            {/* Divider */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="flex items-center justify-between"
+              transition={{ delay: 0.8 }}
+              className="mt-6 text-center"
             >
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  className="w-4 h-4 rounded bg-slate-800 border-slate-600 text-purple-500 focus:ring-purple-500/50 cursor-pointer"
-                />
-                <span className="text-sm text-slate-400">Remember me</span>
-              </label>
-              <a
-                href="#"
-                className="text-sm text-purple-400 hover:text-purple-300 cursor-pointer transition-colors duration-200"
-              >
-                Forgot password?
-              </a>
+              <p className="text-slate-500 text-sm">
+                Don&apos;t have an account?{" "}
+                <Link
+                  href="/register"
+                  className="text-purple-400 hover:text-purple-300 font-medium cursor-pointer transition-colors duration-200"
+                >
+                  Create one free
+                </Link>
+              </p>
             </motion.div>
 
+            {/* Trust badges */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.9 }}
+              className="mt-6 flex items-center justify-center gap-6"
             >
-              <NeonButton type="submit" loading={loading}>
-                Log In
-                <ArrowRight className="w-5 h-5" />
-              </NeonButton>
+              <div className="flex items-center gap-1.5 text-xs text-slate-600">
+                <Shield className="w-3.5 h-3.5" />
+                <span>Encrypted</span>
+              </div>
+              <div className="w-1 h-1 rounded-full bg-slate-700" />
+              <div className="flex items-center gap-1.5 text-xs text-slate-600">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>SOC 2</span>
+              </div>
             </motion.div>
-          </form>
-
-          {/* Divider */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="mt-6 text-center"
-          >
-            <p className="text-slate-500 text-sm">
-              Don&apos;t have an account?{" "}
-              <Link
-                href="/register"
-                className="text-purple-400 hover:text-purple-300 font-medium cursor-pointer transition-colors duration-200"
-              >
-                Create one free
-              </Link>
-            </p>
-          </motion.div>
-
-          {/* Trust badges */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.9 }}
-            className="mt-6 flex items-center justify-center gap-6"
-          >
-            <div className="flex items-center gap-1.5 text-xs text-slate-600">
-              <Shield className="w-3.5 h-3.5" />
-              <span>Encrypted</span>
-            </div>
-            <div className="w-1 h-1 rounded-full bg-slate-700" />
-            <div className="flex items-center gap-1.5 text-xs text-slate-600">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>SOC 2</span>
-            </div>
-          </motion.div>
-        </div>
-      </motion.div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

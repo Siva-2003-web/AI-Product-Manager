@@ -1,7 +1,8 @@
 import { MongoClient, Db } from "mongodb";
 
-// Enforce IPv4 by default to avoid Node.js 17+ localhost IPv6 resolution timeouts
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/";
+const MONGODB_URI =
+  process.env.MONGODB_URI ||
+  (process.env.NODE_ENV === "development" ? "mongodb://127.0.0.1:27017/" : "");
 const DB_NAME = "ai_pm_landing";
 
 let client: MongoClient;
@@ -21,6 +22,10 @@ export async function connectToDatabase(): Promise<{
   client: MongoClient;
   db: Db;
 }> {
+  if (!MONGODB_URI) {
+    throw new Error("MONGODB_URI is not configured.");
+  }
+
   if (process.env.NODE_ENV === "development") {
     // In development mode, use a global variable so that the value
     // is preserved across module reloads caused by HMR (Hot Module Replacement).

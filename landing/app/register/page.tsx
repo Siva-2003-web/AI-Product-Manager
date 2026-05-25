@@ -45,8 +45,8 @@ function ParticleField() {
               p.id % 3 === 0
                 ? "rgba(124, 58, 237, 0.6)"
                 : p.id % 3 === 1
-                ? "rgba(56, 189, 248, 0.5)"
-                : "rgba(167, 139, 250, 0.4)",
+                  ? "rgba(56, 189, 248, 0.5)"
+                  : "rgba(167, 139, 250, 0.4)",
           }}
           animate={{
             y: [0, -200, -400],
@@ -152,8 +152,7 @@ function NeonInput({
           className="absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           animate={focused ? { opacity: 1 } : {}}
           style={{
-            background:
-              "linear-gradient(135deg, #7C3AED, #38BDF8, #7C3AED)",
+            background: "linear-gradient(135deg, #7C3AED, #38BDF8, #7C3AED)",
             backgroundSize: "200% 200%",
           }}
         >
@@ -181,8 +180,8 @@ function NeonInput({
               error
                 ? "border-rose-500/70"
                 : focused
-                ? "border-transparent"
-                : "border-slate-700/50 hover:border-slate-600/60"
+                  ? "border-transparent"
+                  : "border-slate-700/50 hover:border-slate-600/60"
             }`}
           {...props}
         />
@@ -213,20 +212,11 @@ function NeonButton({
     <motion.button
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className="relative w-full py-4 rounded-xl font-semibold text-white text-lg cursor-pointer transition-all duration-300 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center gap-2"
-      style={{
-        background: "linear-gradient(135deg, #7C3AED, #6D28D9)",
-      }}
+      className="relative w-full py-4 rounded-xl font-semibold text-white text-lg cursor-pointer transition-all duration-300 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center gap-2 bg-[linear-gradient(135deg,#7C3AED,#6D28D9)]"
       disabled={loading}
       {...props}
     >
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          boxShadow:
-            "inset 0 0 30px rgba(124, 58, 237, 0.4), 0 0 40px rgba(124, 58, 237, 0.3)",
-        }}
-      />
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_30px_rgba(124,58,237,0.4),0_0_40px_rgba(124,58,237,0.3)]" />
       <motion.div
         className="absolute inset-0 opacity-0 group-hover:opacity-30"
         animate={{ x: ["-100%", "200%"] }}
@@ -236,11 +226,7 @@ function NeonButton({
           ease: "linear",
           repeatDelay: 1,
         }}
-        style={{
-          background:
-            "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
-          width: "50%",
-        }}
+        className="bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent)] w-1/2"
       />
       <span className="relative z-10 flex items-center gap-2">
         {loading && <Loader2 className="w-5 h-5 animate-spin" />}
@@ -295,10 +281,10 @@ function PasswordStrength({ password }: { password: string }) {
           strength <= 1
             ? "text-rose-400"
             : strength <= 2
-            ? "text-orange-400"
-            : strength <= 3
-            ? "text-yellow-400"
-            : "text-emerald-400"
+              ? "text-orange-400"
+              : strength <= 3
+                ? "text-yellow-400"
+                : "text-emerald-400"
         }`}
       >
         {labels[strength]}
@@ -309,13 +295,62 @@ function PasswordStrength({ password }: { password: string }) {
 
 /* ─── Orbiting Agent Icons (Left Panel) ─── */
 const AI_AGENTS = [
-  { icon: PenTool, label: "Product Manager", color: "#60A5FA" },
-  { icon: Layout, label: "UI/UX Designer", color: "#F472B6" },
-  { icon: Code, label: "Frontend Dev", color: "#FBBF24" },
-  { icon: Terminal, label: "Backend Dev", color: "#34D399" },
-  { icon: Database, label: "DB Architect", color: "#A78BFA" },
-  { icon: Server, label: "DevOps Engineer", color: "#FB923C" },
-  { icon: ShieldCheck, label: "QA Specialist", color: "#F87171" },
+  {
+    icon: PenTool,
+    label: "Product Manager",
+    positionClass: "top-4 left-1/2 -translate-x-1/2",
+    toneClass: "text-sky-400",
+    toneSoftClass:
+      "bg-sky-400/15 border-sky-400/30 shadow-[0_0_20px_rgba(56,189,248,0.18)]",
+  },
+  {
+    icon: Layout,
+    label: "UI/UX Designer",
+    positionClass: "top-1/4 right-4 -translate-y-1/2",
+    toneClass: "text-pink-400",
+    toneSoftClass:
+      "bg-pink-400/15 border-pink-400/30 shadow-[0_0_20px_rgba(244,114,182,0.18)]",
+  },
+  {
+    icon: Code,
+    label: "Frontend Dev",
+    positionClass: "bottom-1/4 right-6 translate-y-1/2",
+    toneClass: "text-amber-400",
+    toneSoftClass:
+      "bg-amber-400/15 border-amber-400/30 shadow-[0_0_20px_rgba(251,191,36,0.18)]",
+  },
+  {
+    icon: Terminal,
+    label: "Backend Dev",
+    positionClass: "bottom-4 left-1/2 -translate-x-1/2",
+    toneClass: "text-emerald-400",
+    toneSoftClass:
+      "bg-emerald-400/15 border-emerald-400/30 shadow-[0_0_20px_rgba(52,211,153,0.18)]",
+  },
+  {
+    icon: Database,
+    label: "DB Architect",
+    positionClass: "bottom-1/4 left-6 translate-y-1/2",
+    toneClass: "text-violet-400",
+    toneSoftClass:
+      "bg-violet-400/15 border-violet-400/30 shadow-[0_0_20px_rgba(167,139,250,0.18)]",
+  },
+  {
+    icon: Server,
+    label: "DevOps Engineer",
+    positionClass: "top-1/4 left-4 -translate-y-1/2",
+    toneClass: "text-orange-400",
+    toneSoftClass:
+      "bg-orange-400/15 border-orange-400/30 shadow-[0_0_20px_rgba(251,146,60,0.18)]",
+  },
+  {
+    icon: ShieldCheck,
+    label: "QA Specialist",
+    positionClass: "top-1/2 left-6 -translate-y-1/2",
+    toneClass: "text-rose-400",
+    toneSoftClass:
+      "bg-rose-400/15 border-rose-400/30 shadow-[0_0_20px_rgba(248,113,113,0.18)]",
+  },
 ];
 
 function AgentOrbit() {
@@ -341,30 +376,19 @@ function AgentOrbit() {
         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
         className="absolute inset-[15%] rounded-full border border-cyan-500/10"
       />
-      <div
-        className="relative z-10 w-20 h-20 rounded-2xl flex items-center justify-center border border-purple-500/40"
-        style={{
-          background: "linear-gradient(135deg, rgba(124,58,237,0.2), rgba(56,189,248,0.1))",
-          boxShadow: "0 0 40px rgba(124,58,237,0.2)",
-        }}
-      >
+      <div className="relative z-10 w-20 h-20 rounded-2xl flex items-center justify-center border border-purple-500/40 bg-[linear-gradient(135deg,rgba(124,58,237,0.2),rgba(56,189,248,0.1))] shadow-[0_0_40px_rgba(124,58,237,0.2)]">
         <Brain className="w-10 h-10 text-purple-400" />
       </div>
 
       {/* Orbiting agents */}
       {AI_AGENTS.map((agent, index) => {
-        const angle = (index * (360 / AI_AGENTS.length) - 90) * (Math.PI / 180);
-        const radius = 130;
-        const x = Math.cos(angle) * radius;
-        const y = Math.sin(angle) * radius;
         const Icon = agent.icon;
         const isActive = index === activeAgent;
 
         return (
           <motion.div
             key={agent.label}
-            className="absolute flex items-center justify-center cursor-pointer"
-            style={{ left: `calc(50% + ${x}px - 20px)`, top: `calc(50% + ${y}px - 20px)` }}
+            className={`absolute flex items-center justify-center cursor-pointer ${agent.positionClass}`}
             animate={{
               scale: isActive ? 1.3 : 1,
               opacity: isActive ? 1 : 0.5,
@@ -373,16 +397,13 @@ function AgentOrbit() {
             onClick={() => setActiveAgent(index)}
           >
             <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center border transition-all duration-300"
-              style={{
-                background: isActive
-                  ? `rgba(${parseInt(agent.color.slice(1, 3), 16)},${parseInt(agent.color.slice(3, 5), 16)},${parseInt(agent.color.slice(5, 7), 16)},0.15)`
-                  : "rgba(255,255,255,0.05)",
-                borderColor: isActive ? agent.color + "50" : "rgba(255,255,255,0.1)",
-                boxShadow: isActive ? `0 0 20px ${agent.color}30` : "none",
-              }}
+              className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-all duration-300 ${
+                isActive
+                  ? agent.toneSoftClass
+                  : "bg-white/5 border-white/10 shadow-none"
+              }`}
             >
-              <Icon className="w-5 h-5" style={{ color: agent.color }} />
+              <Icon className={`w-5 h-5 ${agent.toneClass}`} />
             </div>
           </motion.div>
         );
@@ -401,7 +422,9 @@ function AgentOrbit() {
           <p className="text-white font-semibold text-sm">
             {AI_AGENTS[activeAgent].label}
           </p>
-          <p className="text-slate-500 text-xs">Agent #{activeAgent + 1} — Online</p>
+          <p className="text-slate-500 text-xs">
+            Agent #{activeAgent + 1} — Online
+          </p>
         </motion.div>
       </AnimatePresence>
     </div>
@@ -460,12 +483,17 @@ export default function RegisterPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setServerError(data.error || "Registration failed.");
+        const message =
+          typeof data?.error === "string"
+            ? data.error
+            : data?.error?.message || "Registration failed.";
+        setServerError(message);
         return;
       }
-      const dashboardUrl = typeof window !== "undefined" && window.location.port === "3001"
-        ? `http://${window.location.hostname}:3000/dashboard`
-        : "/dashboard";
+      const dashboardUrl =
+        typeof window !== "undefined" && window.location.port === "3001"
+          ? `http://${window.location.hostname}:3000/dashboard`
+          : "/dashboard";
       window.location.href = dashboardUrl;
     } catch {
       setServerError("Network error. Please try again.");
@@ -477,13 +505,7 @@ export default function RegisterPage() {
   if (!mounted) return null;
 
   return (
-    <div
-      className="min-h-screen flex relative overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(135deg, #0a0a1a 0%, #0f0f2e 40%, #0a0a1a 100%)",
-      }}
-    >
+    <div className="min-h-screen flex relative overflow-hidden bg-[linear-gradient(135deg,#0a0a1a_0%,#0f0f2e_40%,#0a0a1a_100%)]">
       {/* Background effects */}
       <ParticleField />
       <BackgroundWaves />
@@ -493,11 +515,7 @@ export default function RegisterPage() {
       <motion.div
         animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.25, 0.15] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(124,58,237,0.2), transparent 70%)",
-        }}
+        className="absolute top-[-20%] left-[-10%] w-150 h-150 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.2),transparent_70%)]"
       />
       <motion.div
         animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.2, 0.1] }}
@@ -507,22 +525,11 @@ export default function RegisterPage() {
           ease: "easeInOut",
           delay: 2,
         }}
-        className="absolute bottom-[-20%] right-[-10%] w-[700px] h-[700px] rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(56,189,248,0.15), transparent 70%)",
-        }}
+        className="absolute bottom-[-20%] right-[-10%] w-175 h-175 rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.15),transparent_70%)]"
       />
 
       {/* Grid overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(124,58,237,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.3) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      />
+      <div className="absolute inset-0 opacity-[0.04] pointer-events-none bg-[linear-gradient(rgba(124,58,237,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(124,58,237,0.3)_1px,transparent_1px)] bg-size-[60px_60px]" />
 
       {/* ─── LEFT: Visual Panel ─── */}
       <div className="hidden lg:flex lg:w-[45%] items-center justify-center relative z-10 p-12">
@@ -545,13 +552,7 @@ export default function RegisterPage() {
           >
             Build the future
             <br />
-            <span
-              className="bg-clip-text text-transparent"
-              style={{
-                backgroundImage:
-                  "linear-gradient(90deg, #A78BFA, #38BDF8)",
-              }}
-            >
+            <span className="bg-[linear-gradient(90deg,#A78BFA,#38BDF8)] bg-clip-text text-transparent">
               with AI agents.
             </span>
           </motion.h2>
@@ -585,22 +586,10 @@ export default function RegisterPage() {
           className="w-full max-w-md"
         >
           {/* Card glow */}
-          <div
-            className="absolute -inset-1 rounded-3xl opacity-30 blur-xl"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(124,58,237,0.3), rgba(56,189,248,0.2))",
-            }}
-          />
+          <div className="absolute -inset-1 rounded-3xl opacity-30 blur-xl bg-[linear-gradient(135deg,rgba(124,58,237,0.3),rgba(56,189,248,0.2))]" />
 
           {/* Glassmorphism card */}
-          <div
-            className="relative rounded-3xl border border-white/10 p-8 sm:p-10 backdrop-blur-xl"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(15,15,40,0.85), rgba(20,20,50,0.9))",
-            }}
-          >
+          <div className="relative rounded-3xl border border-white/10 p-8 sm:p-10 backdrop-blur-xl bg-[linear-gradient(135deg,rgba(15,15,40,0.85),rgba(20,20,50,0.9))]">
             {/* Mobile Back to Home */}
             <div className="lg:hidden mb-6">
               <Link
@@ -639,12 +628,7 @@ export default function RegisterPage() {
                   initial={{ opacity: 0, y: -10, height: 0 }}
                   animate={{ opacity: 1, y: 0, height: "auto" }}
                   exit={{ opacity: 0, y: -10, height: 0 }}
-                  className="mb-6 p-3 rounded-xl border text-sm"
-                  style={{
-                    background: "rgba(244,63,94,0.1)",
-                    borderColor: "rgba(244,63,94,0.3)",
-                    color: "#fb7185",
-                  }}
+                  className="mb-6 p-3 rounded-xl border text-sm bg-rose-500/10 border-rose-500/30 text-rose-400"
                 >
                   {serverError}
                 </motion.div>
@@ -662,9 +646,7 @@ export default function RegisterPage() {
                   label="Full Name"
                   placeholder="Jane Doe"
                   value={form.name}
-                  onChange={(e) =>
-                    setForm({ ...form, name: e.target.value })
-                  }
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
                   error={errors.name}
                   autoComplete="name"
                 />
@@ -680,9 +662,7 @@ export default function RegisterPage() {
                   type="email"
                   placeholder="jane@company.com"
                   value={form.email}
-                  onChange={(e) =>
-                    setForm({ ...form, email: e.target.value })
-                  }
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
                   error={errors.email}
                   autoComplete="email"
                 />
@@ -708,10 +688,8 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-[38px] text-slate-500 hover:text-slate-300 cursor-pointer transition-colors duration-200"
-                  aria-label={
-                    showPassword ? "Hide password" : "Show password"
-                  }
+                  className="absolute right-3 top-9.5 text-slate-500 hover:text-slate-300 cursor-pointer transition-colors duration-200"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
                     <EyeOff className="w-4 h-4" />

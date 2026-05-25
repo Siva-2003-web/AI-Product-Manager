@@ -21,9 +21,10 @@ export default function Navbar() {
   const [authLoading, setAuthLoading] = useState(true);
   const router = useRouter();
 
-  const dashboardUrl = typeof window !== "undefined" && window.location.port === "3001"
-    ? `http://${window.location.hostname}:3000/dashboard`
-    : "/dashboard";
+  const dashboardUrl =
+    typeof window !== "undefined" && window.location.port === "3001"
+      ? `http://${window.location.hostname}:3000/dashboard`
+      : "/dashboard";
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -116,7 +117,7 @@ export default function Navbar() {
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-3">
               {authLoading ? (
-                <div className="w-[180px] flex justify-end pr-4">
+                <div className="w-45 flex justify-end pr-4">
                   <Loader2 className="w-5 h-5 animate-spin text-primary-500" />
                 </div>
               ) : user ? (
@@ -200,23 +201,39 @@ export default function Navbar() {
                     </div>
                   ) : user ? (
                     <>
-                      <a href={dashboardUrl} onClick={() => setIsMobileOpen(false)}>
+                      <a
+                        href={dashboardUrl}
+                        onClick={() => setIsMobileOpen(false)}
+                      >
                         <Button variant="secondary" className="w-full">
                           Dashboard
                         </Button>
                       </a>
-                      <Button variant="primary" className="w-full" onClick={() => { setIsMobileOpen(false); handleLogout(); }}>
+                      <Button
+                        variant="primary"
+                        className="w-full"
+                        onClick={() => {
+                          setIsMobileOpen(false);
+                          handleLogout();
+                        }}
+                      >
                         <LogOut className="w-4 h-4 mr-2 inline" /> Log Out
                       </Button>
                     </>
                   ) : (
                     <>
-                      <Link href="/login" onClick={() => setIsMobileOpen(false)}>
+                      <Link
+                        href="/login"
+                        onClick={() => setIsMobileOpen(false)}
+                      >
                         <Button variant="secondary" className="w-full">
                           Log In
                         </Button>
                       </Link>
-                      <Link href="/register" onClick={() => setIsMobileOpen(false)}>
+                      <Link
+                        href="/register"
+                        onClick={() => setIsMobileOpen(false)}
+                      >
                         <Button variant="primary" className="w-full">
                           Get Started
                         </Button>
