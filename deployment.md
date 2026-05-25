@@ -29,14 +29,7 @@ This split matches the current codebase and avoids trying to run the Express bac
 
 ## Architecture Diagram
 
-```mermaid
-flowchart LR
-	U[User] --> V[Vercel: landing/ Next.js]
-	V -->|auth + UI| R[Render: root Vite + Express app]
-	R -->|/api/health /api/generate /api/debug-pdf| G[Google Gemini API]
-	V -->|MONGODB_URI + JWT_SECRET| M[(MongoDB Atlas)]
-	R -->|artifact state + PDF export| L[Browser localStorage]
-```
+![Architecture Diagram](docs/architecture.svg)
 
 ## 1) Render Backend Deployment
 

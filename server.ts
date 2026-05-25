@@ -783,24 +783,28 @@ Return ONLY a JSON object of this structure:
   );
 
   // --- REVERSE PROXY FOR NEXT.JS LANDING PAGE ---
-  const nextProxy = createProxyMiddleware({
-    target: "http://localhost:3001",
-    changeOrigin: true,
-  });
+  // Only enable this while developing locally. In production the landing app
+  // is deployed separately on Vercel, so forwarding to localhost would fail.
+  if (process.env.NODE_ENV !== "production") {
+    const nextProxy = createProxyMiddleware({
+      target: "http://localhost:3001",
+      changeOrigin: true,
+    });
 
-  app.use((req, res, next) => {
-    if (
-      req.path === "/" ||
-      req.path === "/login" ||
-      req.path === "/register" ||
-      req.path.startsWith("/_next") ||
-      req.path.startsWith("/api/auth")
-    ) {
-      nextProxy(req, res, next);
-    } else {
-      next();
-    }
-  });
+    app.use((req, res, next) => {
+      if (
+        req.path === "/" ||
+        req.path === "/login" ||
+        req.path === "/register" ||
+        req.path.startsWith("/_next") ||
+        req.path.startsWith("/api/auth")
+      ) {
+        nextProxy(req, res, next);
+      } else {
+        next();
+      }
+    });
+  }
 
   // Serve static assets from index.html in production, fallback path
   if (process.env.NODE_ENV !== "production") {

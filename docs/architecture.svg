@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">AI Product Manager Architecture</title>
+  <desc id="desc">Architecture diagram showing the user, landing app on Vercel, root app on Render, Google Gemini API, MongoDB Atlas, and browser localStorage.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#07111f"/>
+      <stop offset="50%" stop-color="#0b1830"/>
+      <stop offset="100%" stop-color="#050b15"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f223d"/>
+      <stop offset="100%" stop-color="#102844"/>
+    </linearGradient>
+    <linearGradient id="accentBlue" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0ea5e9"/>
+    </linearGradient>
+    <linearGradient id="accentGreen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="accentAmber" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="accentPink" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f472b6"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <marker id="arrowBlue" markerWidth="14" markerHeight="14" refX="10" refY="7" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L14,7 L0,14 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="14" markerHeight="14" refX="10" refY="7" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L14,7 L0,14 z" fill="#34d399"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="14" markerHeight="14" refX="10" refY="7" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L14,7 L0,14 z" fill="#fbbf24"/>
+    </marker>
+    <style>
+      .title { font: 700 44px 'Segoe UI', Arial, sans-serif; fill: #f8fafc; letter-spacing: 0.2px; }
+      .subtitle { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #94a3b8; }
+      .label { font: 700 22px 'Segoe UI', Arial, sans-serif; fill: #f8fafc; }
+      .small { font: 500 16px 'Segoe UI', Arial, sans-serif; fill: #cbd5e1; }
+      .tiny { font: 500 14px 'Segoe UI', Arial, sans-serif; fill: #93c5fd; letter-spacing: 0.8px; }
+      .card { fill: url(#card); stroke: rgba(148,163,184,0.22); stroke-width: 2; }
+      .pill { fill: rgba(15,23,42,0.75); stroke: rgba(148,163,184,0.18); stroke-width: 1; }
+      .nodeText { font: 700 20px 'Segoe UI', Arial, sans-serif; fill: #f8fafc; }
+      .nodeSub { font: 500 14px 'Segoe UI', Arial, sans-serif; fill: #cbd5e1; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="240" cy="140" r="180" fill="#1d4ed8" opacity="0.12" filter="url(#glow)"/>
+  <circle cx="1380" cy="760" r="220" fill="#0ea5e9" opacity="0.08" filter="url(#glow)"/>
+  <circle cx="1260" cy="180" r="140" fill="#34d399" opacity="0.08" filter="url(#glow)"/>
+
+  <text x="80" y="90" class="title">AI Product Manager + Builder Architecture</text>
+  <text x="80" y="126" class="subtitle">Split deployment: Render hosts the root AI studio, Vercel hosts the landing/auth app, MongoDB Atlas stores auth data.</text>
+
+  <!-- User -->
+  <g filter="url(#shadow)">
+    <rect x="650" y="170" width="300" height="110" rx="24" class="card"/>
+    <rect x="668" y="188" width="110" height="34" rx="17" class="pill"/>
+    <text x="723" y="211" text-anchor="middle" class="tiny">CLIENT</text>
+    <text x="800" y="240" text-anchor="middle" class="label">User</text>
+    <text x="800" y="265" text-anchor="middle" class="small">Browser entry point</text>
+  </g>
+
+  <!-- Vercel landing -->
+  <g filter="url(#shadow)">
+    <rect x="180" y="360" width="400" height="200" rx="28" class="card"/>
+    <rect x="210" y="390" width="140" height="34" rx="17" fill="rgba(56,189,248,0.15)"/>
+    <text x="280" y="413" text-anchor="middle" class="tiny">VERCEL</text>
+    <text x="380" y="455" text-anchor="middle" class="label">Landing / Auth App</text>
+    <text x="380" y="490" text-anchor="middle" class="small">Next.js</text>
+    <text x="380" y="518" text-anchor="middle" class="small">Login • Register • Session checks</text>
+    <text x="380" y="546" text-anchor="middle" class="small">Hosted from landing/</text>
+  </g>
+
+  <!-- Render root -->
+  <g filter="url(#shadow)">
+    <rect x="620" y="360" width="360" height="200" rx="28" class="card"/>
+    <rect x="650" y="390" width="150" height="34" rx="17" fill="rgba(52,211,153,0.15)"/>
+    <text x="725" y="413" text-anchor="middle" class="tiny">RENDER</text>
+    <text x="800" y="455" text-anchor="middle" class="label">Root Planning Studio</text>
+    <text x="800" y="490" text-anchor="middle" class="small">Vite + Express</text>
+    <text x="800" y="518" text-anchor="middle" class="small">AI generation • PDF export • health check</text>
+    <text x="800" y="546" text-anchor="middle" class="small">Hosted from repo root</text>
+  </g>
+
+  <!-- Gemini -->
+  <g filter="url(#shadow)">
+    <rect x="1060" y="340" width="420" height="170" rx="28" class="card"/>
+    <rect x="1090" y="370" width="170" height="34" rx="17" fill="rgba(251,191,36,0.15)"/>
+    <text x="1175" y="393" text-anchor="middle" class="tiny">GOOGLE</text>
+    <text x="1270" y="435" text-anchor="middle" class="label">Gemini API</text>
+    <text x="1270" y="468" text-anchor="middle" class="small">Generates product planning content</text>
+    <text x="1270" y="495" text-anchor="middle" class="small">Called by /api/generate</text>
+  </g>
+
+  <!-- MongoDB -->
+  <g filter="url(#shadow)">
+    <rect x="1060" y="570" width="420" height="160" rx="28" class="card"/>
+    <rect x="1090" y="600" width="170" height="34" rx="17" fill="rgba(244,114,182,0.15)"/>
+    <text x="1175" y="623" text-anchor="middle" class="tiny">DATABASE</text>
+    <text x="1270" y="662" text-anchor="middle" class="label">MongoDB Atlas</text>
+    <text x="1270" y="695" text-anchor="middle" class="small">landing/ users • JWT auth data</text>
+  </g>
+
+  <!-- Browser storage -->
+  <g filter="url(#shadow)">
+    <rect x="170" y="640" width="420" height="130" rx="28" class="card"/>
+    <rect x="200" y="670" width="190" height="34" rx="17" fill="rgba(14,165,233,0.15)"/>
+    <text x="295" y="693" text-anchor="middle" class="tiny">BROWSER</text>
+    <text x="380" y="732" text-anchor="middle" class="label">localStorage</text>
+    <text x="380" y="760" text-anchor="middle" class="small">Project state and PDF export data</text>
+  </g>
+
+  <!-- Connection lines -->
+  <path d="M800 280 C800 320, 500 320, 380 360" fill="none" stroke="url(#accentBlue)" stroke-width="4" marker-end="url(#arrowBlue)"/>
+  <path d="M800 280 C800 320, 700 320, 800 360" fill="none" stroke="url(#accentGreen)" stroke-width="4" marker-end="url(#arrowGreen)"/>
+  <path d="M980 455 C1030 455, 1040 455, 1060 435" fill="none" stroke="url(#accentAmber)" stroke-width="4" marker-end="url(#arrowAmber)"/>
+  <path d="M980 520 C1030 560, 1040 610, 1060 650" fill="none" stroke="url(#accentPink)" stroke-width="4" marker-end="url(#arrowBlue)"/>
+  <path d="M380 560 C380 605, 380 620, 380 640" fill="none" stroke="url(#accentBlue)" stroke-width="4" marker-end="url(#arrowBlue)"/>
+
+  <!-- Callout notes -->
+  <g filter="url(#shadow)">
+    <rect x="620" y="620" width="360" height="150" rx="24" fill="rgba(15,23,42,0.7)" stroke="rgba(56,189,248,0.25)" stroke-width="2"/>
+    <text x="800" y="658" text-anchor="middle" class="label">Deployment split</text>
+    <text x="800" y="688" text-anchor="middle" class="small">Render: root Express backend</text>
+    <text x="800" y="715" text-anchor="middle" class="small">Vercel: landing/ Next.js frontend</text>
+    <text x="800" y="742" text-anchor="middle" class="small">Secrets stay in host dashboards</text>
+  </g>
+</svg>
