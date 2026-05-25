@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: ai-product-manager
+    runtime: node
+    plan: starter
+    branch: main
+    autoDeployTrigger: commit
+    buildCommand: NODE_OPTIONS=--max-old-space-size=3072 npm ci && npm run build
+    startCommand: node dist/server.cjs
+    healthCheckPath: /api/health
