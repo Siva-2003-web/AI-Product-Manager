@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+  }
+}
+
+/* Custom fade effects and smooth transitions */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Print-Friendly Overrides for High-Fidelity Solid Hardcopies and PDFs */
+@media print {
+  /* Enforce white background and high-contrast text for high-quality, ink-efficient print outputs */
+  html, body, #root, .min-h-screen {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11.5pt !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Completely suppress purely interactive, utility, and decoration wrapper items */
+  header,
+  footer,
+  button,
+  input,
+  textarea,
+  select,
+  .no-print,
+  [role="tablist"],
+  [role="status"] {
+    display: none !important;
+  }
+
+  /* Unravel and flatten scroll containers to prevent sliced dashboard descriptions */
+  .overflow-y-auto,
+  .overflow-x-auto,
+  .overflow-hidden,
+  .custom-scrollbar,
+  .scrollbar-thin {
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+  }
+
+  /* Avoid cutting off important bento structures mid-page */
+  .lg\:col-span-8,
+  .lg\:col-span-4,
+  #gantt-chart-flow-container,
+  #user-stories-tab,
+  #development-roadmap-tab,
+  #starter-code-tab,
+  .markdown-body {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Dry out bento panel borders, backgrounds, and drop-shadows to optimize printing clarity */
+  div[class*="border-"],
+  div[class*="rounded-"],
+  article,
+  section {
+    border-color: #94a3b8 !important;
+    box-shadow: none !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Make D3 SVG timeline print vividly with sleek black text styling and fine stroke lines */
+  #gantt-chart-flow-container {
+    background: #ffffff !important;
+    border: 2px solid #0f172a !important;
+    color: #000000 !important;
+  }
+  #gantt-chart-flow-container text {
+    fill: #000000 !important;
+    font-weight: bold !important;
+  }
+  #gantt-chart-flow-container line {
+    stroke: #e2e8f0 !important;
+  }
+  #gantt-chart-flow-container rect {
+    stroke: #0f172a !important;
+    fill: #f8fafc !important;
+  }
+}
+
