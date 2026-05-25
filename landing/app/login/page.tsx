@@ -270,14 +270,7 @@ function QuantumNetwork() {
       </svg>
 
       {/* Central Holographic Core */}
-      <div
-        className="relative z-10 w-20 h-20 rounded-2xl flex items-center justify-center border border-emerald-500/40"
-        style={{
-          background:
-            "linear-gradient(135deg, rgba(52, 211, 153, 0.15), rgba(56, 189, 248, 0.1))",
-          boxShadow: "0 0 35px rgba(52, 211, 153, 0.25)",
-        }}
-      >
+      <div className="relative z-10 w-20 h-20 rounded-2xl flex items-center justify-center border border-emerald-500/40 bg-[linear-gradient(135deg,rgba(52,211,153,0.15),rgba(56,189,248,0.1))] shadow-[0_0_35px_rgba(52,211,153,0.25)]">
         <Cpu className="w-10 h-10 text-emerald-400" />
         <motion.div
           animate={{ scale: [1, 1.25, 1], opacity: [0.4, 0, 0.4] }}
@@ -389,9 +382,7 @@ function NeonButton({
       {...props}
     >
       {/* Glow effect */}
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_30px_rgba(124,58,237,0.4),0_0_40px_rgba(124,58,237,0.3)]"
-      />
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_30px_rgba(124,58,237,0.4),0_0_40px_rgba(124,58,237,0.3)]" />
       {/* Shimmer sweep */}
       <motion.div
         className="absolute inset-0 opacity-0 group-hover:opacity-30"
@@ -469,9 +460,7 @@ export default function LoginPage() {
   if (!mounted) return null;
 
   return (
-    <div
-      className="min-h-screen flex relative overflow-hidden bg-[linear-gradient(135deg,#0a0a1a_0%,#0f0f2e_40%,#0a0a1a_100%)]"
-    >
+    <div className="min-h-screen flex relative overflow-hidden bg-[linear-gradient(135deg,#0a0a1a_0%,#0f0f2e_40%,#0a0a1a_100%)]">
       {/* Background effects */}
       <ParticleField />
       <BackgroundWaves />
@@ -495,9 +484,7 @@ export default function LoginPage() {
       />
 
       {/* Grid overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none bg-[linear-gradient(rgba(124,58,237,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(124,58,237,0.3)_1px,transparent_1px)] bg-size-[60px_60px]"
-      />
+      <div className="absolute inset-0 opacity-[0.04] pointer-events-none bg-[linear-gradient(rgba(124,58,237,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(124,58,237,0.3)_1px,transparent_1px)] bg-size-[60px_60px]" />
 
       {/* ─── LEFT: Visual Panel ─── */}
       <div className="hidden lg:flex lg:w-[45%] items-center justify-center relative z-10 p-12">
@@ -520,9 +507,7 @@ export default function LoginPage() {
           >
             Access your
             <br />
-            <span
-              className="bg-[linear-gradient(90deg,#34D399,#38BDF8)] bg-clip-text text-transparent"
-            >
+            <span className="bg-[linear-gradient(90deg,#34D399,#38BDF8)] bg-clip-text text-transparent">
               command center.
             </span>
           </motion.h2>
@@ -545,7 +530,6 @@ export default function LoginPage() {
             <QuantumNetwork />
           </motion.div>
         </div>
-            className="absolute -inset-1 rounded-3xl opacity-30 blur-xl bg-[linear-gradient(135deg,rgba(52,211,153,0.3),rgba(56,189,248,0.2))]"
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -567,7 +551,8 @@ export default function LoginPage() {
                 Back to Home
               </Link>
             </div>
-              className="relative rounded-3xl border border-white/10 p-8 sm:p-10 backdrop-blur-xl bg-[linear-gradient(135deg,rgba(15,15,40,0.85),rgba(20,20,50,0.9))]"
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="mb-8"
