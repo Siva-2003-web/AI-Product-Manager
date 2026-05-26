@@ -119,7 +119,7 @@ function getProgressWidthClass(progress: number): string {
 
 function getLandingLoginUrl(): string {
   const configured = import.meta.env.VITE_LANDING_LOGIN_URL?.trim().replace(
-    /\/$/, 
+    /\/$/,
     "",
   );
 
@@ -135,6 +135,10 @@ function getLandingLoginUrl(): string {
   }
 
   return configured || "http://localhost:3001/login";
+}
+
+function redirectToLandingLogin() {
+  window.location.href = getLandingLoginUrl();
 }
 
 export default function App() {
@@ -217,7 +221,7 @@ export default function App() {
     setBuildProgress(null);
     setCurrentBuildStep(null);
     setUser(null);
-    window.location.href = getLandingLoginUrl();
+    redirectToLandingLogin();
   };
 
   // Sync state to local storage
