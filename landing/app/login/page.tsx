@@ -517,7 +517,7 @@ export default function LoginPage() {
               initial={{ opacity: 0, y: 40, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full max-w-md xl:max-w-lg"
+              className="w-full max-w-sm"
             >
               {/* Card outer glow */}
               <div className="absolute -inset-1 rounded-4xl opacity-35 blur-xl bg-[linear-gradient(135deg,rgba(45,212,191,0.32),rgba(34,211,238,0.24),rgba(167,243,208,0.12))]" />
