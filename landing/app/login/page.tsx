@@ -39,10 +39,10 @@ function ParticleField() {
             height: p.size,
             background:
               p.id % 3 === 0
-                ? "rgba(124, 58, 237, 0.6)"
+                ? "rgba(16, 185, 129, 0.55)"
                 : p.id % 3 === 1
-                  ? "rgba(56, 189, 248, 0.5)"
-                  : "rgba(167, 139, 250, 0.4)",
+                  ? "rgba(34, 211, 238, 0.5)"
+                  : "rgba(110, 231, 183, 0.35)",
           }}
           animate={{
             y: [0, -200, -400],
@@ -61,7 +61,6 @@ function ParticleField() {
     </div>
   );
 }
-
 /* ─── Animated Background Waves ─── */
 function BackgroundWaves() {
   return (
@@ -72,7 +71,7 @@ function BackgroundWaves() {
         className="absolute top-0 -left-1/4 w-[150%] h-full opacity-30"
         style={{
           background:
-            "radial-gradient(ellipse at 30% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 60%)",
+            "radial-gradient(ellipse at 30% 50%, rgba(20, 184, 166, 0.18) 0%, transparent 60%)",
         }}
       />
       <motion.div
@@ -81,7 +80,7 @@ function BackgroundWaves() {
         className="absolute top-0 -right-1/4 w-[150%] h-full opacity-30"
         style={{
           background:
-            "radial-gradient(ellipse at 70% 60%, rgba(56, 189, 248, 0.12) 0%, transparent 60%)",
+            "radial-gradient(ellipse at 70% 60%, rgba(34, 211, 238, 0.12) 0%, transparent 60%)",
         }}
       />
     </div>
@@ -96,7 +95,7 @@ function FloatingShapes() {
       <motion.div
         animate={{ y: [0, -30, 0], rotate: [0, 180, 360] }}
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[15%] left-[10%] w-16 h-16 border border-purple-500/20 rotate-45"
+        className="absolute top-[15%] left-[10%] w-16 h-16 border border-cyan-400/20 rotate-45"
         style={{
           clipPath:
             "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
@@ -112,20 +111,20 @@ function FloatingShapes() {
       <motion.div
         animate={{ y: [0, -25, 0], x: [0, 15, 0] }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[30%] right-[12%] w-14 h-14 border border-purple-400/20"
+        className="absolute top-[30%] right-[12%] w-14 h-14 border border-teal-300/20"
         style={{ clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }}
       />
       {/* Diamond */}
       <motion.div
         animate={{ y: [0, 35, 0], rotate: [45, 135, 45] }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-[20%] right-[15%] w-12 h-12 border border-sky-400/20"
+        className="absolute bottom-[20%] right-[15%] w-12 h-12 border border-emerald-400/20"
       />
       {/* Small dot cluster */}
       <motion.div
         animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[75%] left-[25%] w-3 h-3 rounded-full bg-purple-500/30"
+        className="absolute top-[75%] left-[25%] w-3 h-3 rounded-full bg-cyan-400/30"
       />
       <motion.div
         animate={{ scale: [1, 1.5, 1], opacity: [0.2, 0.5, 0.2] }}
@@ -135,7 +134,7 @@ function FloatingShapes() {
           ease: "easeInOut",
           delay: 1,
         }}
-        className="absolute top-[20%] right-[30%] w-2 h-2 rounded-full bg-cyan-400/30"
+        className="absolute top-[20%] right-[30%] w-2 h-2 rounded-full bg-emerald-400/30"
       />
     </div>
   );
@@ -320,7 +319,7 @@ function NeonInput({
           className="absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           animate={focused ? { opacity: 1 } : {}}
           style={{
-            background: "linear-gradient(135deg, #7C3AED, #38BDF8, #7C3AED)",
+            background: "linear-gradient(135deg, #14B8A6, #22D3EE, #34D399)",
             backgroundSize: "200% 200%",
           }}
         >
@@ -330,7 +329,7 @@ function NeonInput({
             className="absolute inset-0 rounded-xl"
             style={{
               background:
-                "linear-gradient(135deg, #7C3AED, #38BDF8, #A78BFA, #7C3AED)",
+                "linear-gradient(135deg, #14B8A6, #22D3EE, #A7F3D0, #14B8A6)",
               backgroundSize: "300% 300%",
             }}
           />
@@ -340,14 +339,14 @@ function NeonInput({
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           className={`relative w-full px-4 py-3.5 rounded-xl text-base text-white placeholder:text-slate-500 transition-all duration-300
-            bg-[#1a1a3e]/80 backdrop-blur-sm border
+            bg-[#03111e]/80 backdrop-blur-sm border
             focus:outline-none focus:ring-0
             ${
               error
                 ? "border-rose-500/70"
                 : focused
                   ? "border-transparent"
-                  : "border-slate-700/50 hover:border-slate-600/60"
+                  : "border-cyan-900/50 hover:border-cyan-500/60"
             }`}
           {...props}
         />
@@ -378,12 +377,12 @@ function NeonButton({
     <motion.button
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className="relative w-full py-4 rounded-xl font-semibold text-white text-lg cursor-pointer transition-all duration-300 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center gap-2 bg-[linear-gradient(135deg,#7C3AED,#6D28D9)]"
+      className="relative w-full py-4 rounded-xl font-semibold text-white text-lg cursor-pointer transition-all duration-300 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center gap-2 bg-[linear-gradient(135deg,#14B8A6,#2563EB,#22D3EE)]"
       disabled={loading}
       {...props}
     >
       {/* Glow effect */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_30px_rgba(124,58,237,0.4),0_0_40px_rgba(124,58,237,0.3)]" />
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_30px_rgba(45,212,191,0.35),0_0_40px_rgba(34,211,238,0.28)]" />
       {/* Shimmer sweep */}
       <motion.div
         className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent)] w-1/2"
@@ -458,7 +457,7 @@ export default function LoginPage() {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen flex relative overflow-hidden bg-[linear-gradient(135deg,#0a0a1a_0%,#0f0f2e_40%,#0a0a1a_100%)]">
+    <div className="min-h-screen flex relative overflow-hidden bg-[radial-gradient(circle_at_top_left,#03131f_0%,#020617_42%,#01020a_100%)]">
       {/* Background effects */}
       <ParticleField />
       <BackgroundWaves />
@@ -468,7 +467,7 @@ export default function LoginPage() {
       <motion.div
         animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.25, 0.15] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-20%] left-[-10%] w-150 h-150 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.2),transparent_70%)]"
+        className="absolute top-[-20%] left-[-10%] w-150 h-150 rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.22),transparent_70%)]"
       />
       <motion.div
         animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.2, 0.1] }}
@@ -478,11 +477,11 @@ export default function LoginPage() {
           ease: "easeInOut",
           delay: 2,
         }}
-        className="absolute bottom-[-20%] right-[-10%] w-175 h-175 rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.15),transparent_70%)]"
+        className="absolute bottom-[-20%] right-[-10%] w-175 h-175 rounded-full bg-[radial-gradient(circle,rgba(34,211,238,0.18),transparent_70%)]"
       />
 
       {/* Grid overlay */}
-      <div className="absolute inset-0 opacity-[0.04] pointer-events-none bg-[linear-gradient(rgba(124,58,237,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(124,58,237,0.3)_1px,transparent_1px)] bg-size-[60px_60px]" />
+      <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[linear-gradient(rgba(45,212,191,0.35)_1px,transparent_1px),linear-gradient(90deg,rgba(45,212,191,0.35)_1px,transparent_1px)] bg-size-[60px_60px]" />
 
       {/* ─── LEFT: Visual Panel ─── */}
       <div className="hidden lg:flex lg:w-[45%] items-center justify-center relative z-10 p-12">
@@ -505,7 +504,7 @@ export default function LoginPage() {
           >
             Access your
             <br />
-            <span className="bg-[linear-gradient(90deg,#34D399,#38BDF8)] bg-clip-text text-transparent">
+            <span className="bg-[linear-gradient(90deg,#2DD4BF,#22D3EE,#A7F3D0)] bg-clip-text text-transparent">
               command center.
             </span>
           </motion.h2>
@@ -535,10 +534,10 @@ export default function LoginPage() {
           className="w-full max-w-sm"
         >
           {/* Card outer glow */}
-          <div className="absolute -inset-1 rounded-3xl opacity-30 blur-xl bg-[linear-gradient(135deg,rgba(52,211,153,0.3),rgba(56,189,248,0.2))]" />
+          <div className="absolute -inset-1 rounded-3xl opacity-35 blur-xl bg-[linear-gradient(135deg,rgba(45,212,191,0.32),rgba(34,211,238,0.24),rgba(167,243,208,0.12))]" />
 
           {/* Glassmorphism card */}
-          <div className="relative rounded-3xl border border-white/10 p-6 sm:p-8 backdrop-blur-xl bg-[linear-gradient(135deg,rgba(15,15,40,0.85),rgba(20,20,50,0.9))]">
+          <div className="relative rounded-3xl border border-cyan-300/10 p-6 sm:p-8 backdrop-blur-xl bg-[linear-gradient(135deg,rgba(2,6,23,0.88),rgba(8,15,28,0.95))] shadow-[0_0_80px_rgba(34,211,238,0.12)]">
             {/* Mobile Back to Home */}
             <div className="lg:hidden mb-6">
               <Link
@@ -637,13 +636,13 @@ export default function LoginPage() {
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="w-4 h-4 rounded bg-slate-800 border-slate-600 text-purple-500 focus:ring-purple-500/50 cursor-pointer"
+                    className="w-4 h-4 rounded bg-slate-800 border-cyan-700 text-cyan-400 focus:ring-cyan-400/50 cursor-pointer"
                   />
-                  <span className="text-sm text-slate-400">Remember me</span>
+                  <span className="text-sm text-slate-300">Remember me</span>
                 </label>
                 <a
                   href="#"
-                  className="text-sm text-purple-400 hover:text-purple-300 cursor-pointer transition-colors duration-200"
+                  className="text-sm text-cyan-300 hover:text-cyan-200 cursor-pointer transition-colors duration-200"
                 >
                   Forgot password?
                 </a>
@@ -672,7 +671,7 @@ export default function LoginPage() {
                 Don&apos;t have an account?{" "}
                 <Link
                   href="/register"
-                  className="text-purple-400 hover:text-purple-300 font-medium cursor-pointer transition-colors duration-200"
+                  className="text-cyan-300 hover:text-cyan-200 font-medium cursor-pointer transition-colors duration-200"
                 >
                   Create one free
                 </Link>
@@ -686,12 +685,12 @@ export default function LoginPage() {
               transition={{ delay: 0.9 }}
               className="mt-6 flex items-center justify-center gap-6"
             >
-              <div className="flex items-center gap-1.5 text-xs text-slate-600">
+              <div className="flex items-center gap-1.5 text-xs text-slate-400">
                 <Shield className="w-3.5 h-3.5" />
                 <span>Encrypted</span>
               </div>
               <div className="w-1 h-1 rounded-full bg-slate-700" />
-              <div className="flex items-center gap-1.5 text-xs text-slate-600">
+              <div className="flex items-center gap-1.5 text-xs text-slate-400">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>SOC 2</span>
               </div>

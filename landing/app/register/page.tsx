@@ -119,7 +119,7 @@ function FloatingShapes() {
       <motion.div
         animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[78%] left-[22%] w-3 h-3 rounded-full bg-purple-500/30"
+        className="absolute top-[78%] left-[22%] w-3 h-3 rounded-full bg-rose-400/30"
       />
     </div>
   );
@@ -144,23 +144,23 @@ function QuantumNetwork() {
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-[5%] rounded-full border border-dashed border-emerald-500/20"
+        className="absolute inset-[5%] rounded-full border border-dashed border-rose-300/20"
       />
 
       <motion.div
         animate={{ rotate: -360 }}
         transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-[20%] rounded-full border border-cyan-500/10"
+        className="absolute inset-[20%] rounded-full border border-orange-300/10"
         style={{
           boxShadow:
-            "0 0 25px rgba(56, 189, 248, 0.05), inset 0 0 25px rgba(56, 189, 248, 0.05)",
+            "0 0 25px rgba(251, 146, 60, 0.05), inset 0 0 25px rgba(251, 146, 60, 0.05)",
         }}
       />
 
       <motion.div
         animate={{ scale: [0.95, 1.05, 0.95] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute inset-[35%] rounded-full border border-emerald-500/30"
+        className="absolute inset-[35%] rounded-full border border-rose-500/30"
       />
 
       <svg
@@ -179,7 +179,7 @@ function QuantumNetwork() {
               y1={node.y}
               x2="200"
               y2="200"
-              stroke="rgba(52, 211, 153, 0.2)"
+              stroke="rgba(251, 146, 60, 0.22)"
               strokeWidth="1.5"
               strokeDasharray="5, 5"
               animate={{ strokeDashoffset: [0, -20] }}
@@ -208,14 +208,14 @@ function QuantumNetwork() {
               cx={node.x}
               cy={node.y}
               r="6"
-              fill="#10B981"
+              fill="#FB7185"
               opacity="0.3"
             />
             <motion.circle
               cx={node.x}
               cy={node.y}
               r="3.5"
-              fill="#10B981"
+              fill="#F59E0B"
               animate={{ scale: [1, 1.6, 1], opacity: [0.6, 1, 0.6] }}
               transition={{ duration: 2, repeat: Infinity, delay: i * 0.4 }}
             />
@@ -223,7 +223,7 @@ function QuantumNetwork() {
               x={node.x}
               y={node.y - 12}
               textAnchor="middle"
-              fill="#94A3B8"
+              fill="#FDBA74"
               fontSize="9"
               fontWeight="600"
               letterSpacing="0.05em"
@@ -236,19 +236,19 @@ function QuantumNetwork() {
 
         <defs>
           <linearGradient id="pulseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#38BDF8" stopOpacity="0" />
-            <stop offset="50%" stopColor="#34D399" stopOpacity="1" />
-            <stop offset="100%" stopColor="#10B981" stopOpacity="0" />
+            <stop offset="0%" stopColor="#F472B6" stopOpacity="0" />
+            <stop offset="50%" stopColor="#FB7185" stopOpacity="1" />
+            <stop offset="100%" stopColor="#F59E0B" stopOpacity="0" />
           </linearGradient>
         </defs>
       </svg>
 
-      <div className="relative z-10 w-20 h-20 rounded-2xl flex items-center justify-center border border-emerald-500/40 bg-[linear-gradient(135deg,rgba(52,211,153,0.15),rgba(56,189,248,0.1))] shadow-[0_0_35px_rgba(52,211,153,0.25)]">
-        <Cpu className="w-10 h-10 text-emerald-400" />
+      <div className="relative z-10 w-20 h-20 rounded-2xl flex items-center justify-center border border-orange-400/40 bg-[linear-gradient(135deg,rgba(251,146,60,0.18),rgba(244,114,182,0.12))] shadow-[0_0_35px_rgba(251,146,60,0.22)]">
+        <Cpu className="w-10 h-10 text-orange-300" />
         <motion.div
           animate={{ scale: [1, 1.25, 1], opacity: [0.4, 0, 0.4] }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-0 rounded-2xl border-2 border-emerald-400"
+          className="absolute inset-0 rounded-2xl border-2 border-orange-300"
         />
       </div>
 
@@ -256,10 +256,10 @@ function QuantumNetwork() {
         <motion.div
           animate={{ opacity: [0.8, 1, 0.8] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="bg-emerald-950/40 border border-emerald-500/20 px-3 py-1.5 rounded-full flex items-center gap-2 backdrop-blur-md"
+          className="bg-rose-950/40 border border-orange-500/20 px-3 py-1.5 rounded-full flex items-center gap-2 backdrop-blur-md"
         >
-          <Activity className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-          <span className="text-[11px] font-mono text-emerald-300 font-semibold tracking-wider">
+          <Activity className="w-3.5 h-3.5 text-orange-300 animate-pulse" />
+          <span className="text-[11px] font-mono text-orange-200 font-semibold tracking-wider">
             SECURE LINK SYNCED: {syncPercentage}%
           </span>
         </motion.div>
@@ -290,7 +290,7 @@ function NeonInput({
           className="absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           animate={focused ? { opacity: 1 } : {}}
           style={{
-            background: "linear-gradient(135deg, #7C3AED, #38BDF8, #7C3AED)",
+            background: "linear-gradient(135deg, #FB7185, #F59E0B, #FDE047)",
             backgroundSize: "200% 200%",
           }}
         >
@@ -302,7 +302,7 @@ function NeonInput({
             className="absolute inset-0 rounded-xl"
             style={{
               background:
-                "linear-gradient(135deg, #7C3AED, #38BDF8, #A78BFA, #7C3AED)",
+                "linear-gradient(135deg, #FB7185, #F59E0B, #FDE047, #FB7185)",
               backgroundSize: "300% 300%",
             }}
           />
@@ -312,14 +312,14 @@ function NeonInput({
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           className={`relative w-full px-4 py-3.5 rounded-xl text-base text-white placeholder:text-slate-500 transition-all duration-300
-            bg-[#1a1a3e]/80 backdrop-blur-sm border
+            bg-[#120912]/80 backdrop-blur-sm border
             focus:outline-none focus:ring-0
             ${
               error
                 ? "border-rose-500/70"
                 : focused
                   ? "border-transparent"
-                  : "border-slate-700/50 hover:border-slate-600/60"
+                  : "border-orange-900/50 hover:border-orange-500/60"
             }`}
           {...props}
         />
@@ -350,11 +350,11 @@ function NeonButton({
     <motion.button
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className="relative w-full py-4 rounded-xl font-semibold text-white text-lg cursor-pointer transition-all duration-300 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center gap-2 bg-[linear-gradient(135deg,#7C3AED,#6D28D9)]"
+      className="relative w-full py-4 rounded-xl font-semibold text-white text-lg cursor-pointer transition-all duration-300 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center gap-2 bg-[linear-gradient(135deg,#FB7185,#F59E0B,#FDE047)]"
       disabled={loading}
       {...props}
     >
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_30px_rgba(124,58,237,0.4),0_0_40px_rgba(124,58,237,0.3)]" />
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[inset_0_0_30px_rgba(251,113,133,0.35),0_0_40px_rgba(245,158,11,0.28)]" />
       <motion.div
         className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent)] w-1/2"
         animate={{ x: ["-100%", "200%"] }}
@@ -502,7 +502,7 @@ export default function RegisterPage() {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen flex relative overflow-hidden bg-[linear-gradient(135deg,#0a0a1a_0%,#0f0f2e_40%,#0a0a1a_100%)]">
+    <div className="min-h-screen flex relative overflow-hidden lg:flex-row-reverse bg-[radial-gradient(circle_at_top_right,#1f1027_0%,#090611_46%,#040308_100%)]">
       {/* Background effects */}
       <ParticleField />
       <BackgroundWaves />
@@ -512,7 +512,7 @@ export default function RegisterPage() {
       <motion.div
         animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.25, 0.15] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-20%] left-[-10%] w-150 h-150 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.2),transparent_70%)]"
+        className="absolute top-[-20%] left-[-10%] w-150 h-150 rounded-full bg-[radial-gradient(circle,rgba(244,114,182,0.22),transparent_70%)]"
       />
       <motion.div
         animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.2, 0.1] }}
@@ -522,11 +522,11 @@ export default function RegisterPage() {
           ease: "easeInOut",
           delay: 2,
         }}
-        className="absolute bottom-[-20%] right-[-10%] w-175 h-175 rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.15),transparent_70%)]"
+        className="absolute bottom-[-20%] right-[-10%] w-175 h-175 rounded-full bg-[radial-gradient(circle,rgba(251,146,60,0.18),transparent_70%)]"
       />
 
       {/* Grid overlay */}
-      <div className="absolute inset-0 opacity-[0.04] pointer-events-none bg-[linear-gradient(rgba(124,58,237,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(124,58,237,0.3)_1px,transparent_1px)] bg-size-[60px_60px]" />
+      <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[linear-gradient(rgba(251,146,60,0.25)_1px,transparent_1px),linear-gradient(90deg,rgba(251,146,60,0.25)_1px,transparent_1px)] bg-size-[60px_60px]" />
 
       {/* ─── LEFT: Visual Panel ─── */}
       <div className="hidden lg:flex lg:w-[45%] items-center justify-center relative z-10 p-12">
@@ -549,8 +549,8 @@ export default function RegisterPage() {
           >
             Access your
             <br />
-            <span className="bg-[linear-gradient(90deg,#34D399,#38BDF8)] bg-clip-text text-transparent">
-              command center.
+            <span className="bg-[linear-gradient(90deg,#FDBA74,#FB7185,#FDE047)] bg-clip-text text-transparent">
+              launch account.
             </span>
           </motion.h2>
           <motion.p
@@ -583,10 +583,10 @@ export default function RegisterPage() {
           className="w-full max-w-sm"
         >
           {/* Card glow */}
-          <div className="absolute -inset-1 rounded-3xl opacity-30 blur-xl bg-[linear-gradient(135deg,rgba(124,58,237,0.3),rgba(56,189,248,0.2))]" />
+          <div className="absolute -inset-1 rounded-3xl opacity-35 blur-xl bg-[linear-gradient(135deg,rgba(244,114,182,0.28),rgba(251,146,60,0.22),rgba(253,224,71,0.16))]" />
 
           {/* Glassmorphism card */}
-          <div className="relative rounded-3xl border border-white/10 p-6 sm:p-8 backdrop-blur-xl bg-[linear-gradient(135deg,rgba(15,15,40,0.85),rgba(20,20,50,0.9))]">
+          <div className="relative rounded-3xl border border-orange-200/10 p-6 sm:p-8 backdrop-blur-xl bg-[linear-gradient(135deg,rgba(19,10,25,0.88),rgba(32,16,18,0.94))] shadow-[0_0_80px_rgba(251,146,60,0.12)]">
             {/* Mobile Back to Home */}
             <div className="lg:hidden mb-6">
               <Link
@@ -611,7 +611,7 @@ export default function RegisterPage() {
                 Already have an account?{" "}
                 <Link
                   href="/login"
-                  className="text-purple-400 hover:text-purple-300 font-medium cursor-pointer transition-colors duration-200"
+                  className="text-orange-300 hover:text-orange-200 font-medium cursor-pointer transition-colors duration-200"
                 >
                   Log in
                 </Link>
@@ -685,7 +685,7 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-9.5 text-slate-500 hover:text-slate-300 cursor-pointer transition-colors duration-200"
+                  className="absolute right-3 top-9.5 text-slate-500 hover:text-orange-200 cursor-pointer transition-colors duration-200"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
@@ -732,20 +732,20 @@ export default function RegisterPage() {
                     type="checkbox"
                     checked={agreedToTerms}
                     onChange={(e) => setAgreedToTerms(e.target.checked)}
-                    className="mt-0.5 w-4 h-4 rounded bg-slate-800 border-slate-600 text-purple-500 focus:ring-purple-500/50 cursor-pointer"
+                    className="mt-0.5 w-4 h-4 rounded bg-slate-800 border-orange-700 text-orange-400 focus:ring-orange-400/50 cursor-pointer"
                   />
-                  <span className="text-sm text-slate-400">
+                  <span className="text-sm text-slate-300">
                     I agree to the{" "}
                     <a
                       href="#"
-                      className="text-purple-400 hover:text-purple-300 cursor-pointer transition-colors duration-200"
+                      className="text-orange-300 hover:text-orange-200 cursor-pointer transition-colors duration-200"
                     >
                       Terms of Service
                     </a>{" "}
                     and{" "}
                     <a
                       href="#"
-                      className="text-purple-400 hover:text-purple-300 cursor-pointer transition-colors duration-200"
+                      className="text-orange-300 hover:text-orange-200 cursor-pointer transition-colors duration-200"
                     >
                       Privacy Policy
                     </a>
