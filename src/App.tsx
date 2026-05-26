@@ -186,8 +186,18 @@ export default function App() {
   }, []);
 
   const handleLogout = () => {
+    localStorage.removeItem("ai_pm_active_project");
+    localStorage.removeItem("ai_pm_history");
+    window.location.hash = "";
+    setProject(null);
+    setHistory([]);
+    setActiveTab("overview");
+    setIsLoading(false);
+    setLoaderStatus("");
+    setBuildProgress(null);
+    setCurrentBuildStep(null);
     setUser(null);
-    window.location.href = "/";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Sync state to local storage
