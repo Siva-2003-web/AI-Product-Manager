@@ -18,6 +18,7 @@ import {
   Loader2,
 } from "lucide-react";
 import Link from "next/link";
+import { getMainAppUrl } from "@/lib/navigation";
 
 /* ─── Floating Particle System ─── */
 function ParticleField() {
@@ -490,10 +491,7 @@ export default function RegisterPage() {
         setServerError(message);
         return;
       }
-      const dashboardUrl =
-        typeof window !== "undefined" && window.location.port === "3001"
-          ? `http://${window.location.hostname}:3000/dashboard`
-          : "/dashboard";
+      const dashboardUrl = getMainAppUrl();
       window.location.href = dashboardUrl;
     } catch {
       setServerError("Network error. Please try again.");

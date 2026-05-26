@@ -6,6 +6,7 @@ import { Menu, X, Zap, LogOut, Loader2 } from "lucide-react";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import { NAV_LINKS } from "@/lib/constants";
+import { getMainAppUrl } from "@/lib/navigation";
 import { useRouter } from "next/navigation";
 
 interface NavbarUser {
@@ -21,10 +22,7 @@ export default function Navbar() {
   const [authLoading, setAuthLoading] = useState(true);
   const router = useRouter();
 
-  const dashboardUrl =
-    typeof window !== "undefined" && window.location.port === "3001"
-      ? `http://${window.location.hostname}:3000/dashboard`
-      : "/dashboard";
+  const dashboardUrl = getMainAppUrl();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);

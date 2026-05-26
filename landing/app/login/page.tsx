@@ -13,6 +13,7 @@ import {
   Activity,
 } from "lucide-react";
 import Link from "next/link";
+import { getMainAppUrl } from "@/lib/navigation";
 
 /* ─── Floating Particle System ─── */
 function ParticleField() {
@@ -445,10 +446,7 @@ export default function LoginPage() {
         setServerError(message);
         return;
       }
-      const dashboardUrl =
-        typeof window !== "undefined" && window.location.port === "3001"
-          ? `http://${window.location.hostname}:3000/dashboard`
-          : "/dashboard";
+      const dashboardUrl = getMainAppUrl();
       window.location.href = dashboardUrl;
     } catch {
       setServerError("Network error. Please try again.");
@@ -534,13 +532,13 @@ export default function LoginPage() {
           initial={{ opacity: 0, y: 40, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full max-w-md"
+          className="w-full max-w-sm"
         >
           {/* Card outer glow */}
           <div className="absolute -inset-1 rounded-3xl opacity-30 blur-xl bg-[linear-gradient(135deg,rgba(52,211,153,0.3),rgba(56,189,248,0.2))]" />
 
           {/* Glassmorphism card */}
-          <div className="relative rounded-3xl border border-white/10 p-8 sm:p-10 backdrop-blur-xl bg-[linear-gradient(135deg,rgba(15,15,40,0.85),rgba(20,20,50,0.9))]">
+          <div className="relative rounded-3xl border border-white/10 p-6 sm:p-8 backdrop-blur-xl bg-[linear-gradient(135deg,rgba(15,15,40,0.85),rgba(20,20,50,0.9))]">
             {/* Mobile Back to Home */}
             <div className="lg:hidden mb-6">
               <Link
@@ -555,12 +553,12 @@ export default function LoginPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="mb-8"
+              className="mb-6"
             >
-              <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">
+              <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2 tracking-tight">
                 Welcome back
               </h1>
-              <p className="text-slate-400 text-sm">
+              <p className="text-slate-400 text-xs sm:text-sm">
                 Log in to your AI command center
               </p>
             </motion.div>
@@ -580,7 +578,7 @@ export default function LoginPage() {
             </AnimatePresence>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-3">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
