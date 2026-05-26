@@ -1004,7 +1004,7 @@ export async function exportAllArtifactsAsPDF({
         splitHeaders.forEach((lines, colIdx) => {
           const colW = colWidths[colIdx] || contentWidth / numCols;
           let cellY = y + 3;
-          lines.forEach((line) => {
+          lines.forEach((line: string) => {
             doc.text(line, colX + 1.5, cellY + 8 * 0.3528 * 0.85);
             cellY += 3.8;
           });
@@ -1061,7 +1061,7 @@ export async function exportAllArtifactsAsPDF({
               doc.setTextColor(51, 65, 85);
             }
 
-            lines.forEach((line) => {
+            lines.forEach((line: string) => {
               doc.text(line, cellColX + 1.5, cellY + 7.5 * 0.3528 * 0.85);
               cellY += 3.5;
             });

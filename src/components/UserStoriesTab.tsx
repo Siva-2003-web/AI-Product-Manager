@@ -121,11 +121,7 @@ export default function UserStoriesTab({
     }
   };
 
-  const handleToggleStoryCompletion = (
-    story: UserStory,
-    e: React.MouseEvent,
-  ) => {
-    e.stopPropagation(); // Avoid expanding/collapsing details
+  const handleToggleStoryCompletion = (story: UserStory) => {
     const isNowCompleted = !completedStoryIds[story.id];
     setCompletedStoryIds((prev) => ({ ...prev, [story.id]: isNowCompleted }));
 
@@ -317,7 +313,8 @@ export default function UserStoriesTab({
                     <input
                       type="checkbox"
                       checked={!!completedStoryIds[story.id]}
-                      onChange={(e) => handleToggleStoryCompletion(story, e)}
+                      onChange={() => handleToggleStoryCompletion(story)}
+                      onClick={(e) => e.stopPropagation()}
                       className="w-4 h-4 rounded cursor-pointer accent-indigo-600 border-slate-300 focus:ring-indigo-500"
                       title="Toggle direct completion of user story"
                     />

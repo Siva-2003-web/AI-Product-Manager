@@ -161,16 +161,14 @@ export default function DatabaseSchemaTab({ schema }: DatabaseSchemaTabProps) {
                       <tr key={idx} className="hover:bg-slate-50/50">
                         <td className="p-3 font-mono font-bold flex items-center gap-1.5 text-slate-900">
                           {isPK && (
-                            <Key
-                              className="w-3 h-3 text-amber-500 shrink-0"
-                              title="Primary Key"
-                            />
+                            <span title="Primary Key">
+                              <Key className="w-3 h-3 text-amber-500 shrink-0" />
+                            </span>
                           )}
                           {isFK && (
-                            <Link2
-                              className="w-3 h-3 text-indigo-500 shrink-0"
-                              title="Foreign Key"
-                            />
+                            <span title="Foreign Key">
+                              <Link2 className="w-3 h-3 text-indigo-500 shrink-0" />
+                            </span>
                           )}
                           <span>{f.name}</span>
                         </td>

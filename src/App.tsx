@@ -129,30 +129,14 @@ export default function App() {
   // Backups / historical projects list in client-side localStorage
   const [history, setHistory] = useState<ProjectState[]>([]);
   const [isExportingPDF, setIsExportingPDF] = useState(false);
-  const [user, setUser] = useState<{ id: string; name: string; email: string } | null>(null);
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const [user, setUser] = useState<{
+    id: string;
+    name: string;
+    email: string;
+  } | null>(null);
 
   // Check health and load cache on mount
   useEffect(() => {
-    // Check if user is logged in
-    fetch("/api/auth/me")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Not authenticated");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setUser(data.user);
-        setIsCheckingAuth(false);
-      })
-      .catch((err) => {
-        console.error("Auth check error:", err);
-        setIsCheckingAuth(false);
-        // Redirect to login if not authenticated
-        window.location.href = "/login";
-      });
-
     // Check if server API and Key are alive
     fetch("/api/health")
       .then((res) => res.json())
@@ -202,14 +186,8 @@ export default function App() {
   }, []);
 
   const handleLogout = () => {
-    fetch("/api/auth/logout", { method: "POST" })
-      .then(() => {
-        window.location.href = "/";
-      })
-      .catch((err) => {
-        console.error("Logout failed:", err);
-        window.location.href = "/";
-      });
+    setUser(null);
+    window.location.href = "/";
   };
 
   // Sync state to local storage
@@ -414,20 +392,6 @@ export default function App() {
     localStorage.setItem("ai_pm_history", JSON.stringify(updated));
   };
 
-  if (isCheckingAuth) {
-    return (
-      <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center text-white gap-4">
-        <div className="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-extrabold text-2xl shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] border-2 border-slate-900 select-none animate-bounce">
-          Σ
-        </div>
-        <div className="flex items-center gap-2">
-          <RefreshCw className="w-5 h-5 animate-spin text-indigo-400" />
-          <span className="font-bold tracking-wide uppercase text-xs text-slate-400">Verifying session...</span>
-        </div>
-      </div>
-    );
-  }
-
   const currentThemeStyle: ThemeStyle =
     project?.themePreference || "Industrial";
   const themePresetData = THEME_PRESETS[currentThemeStyle];
@@ -457,9 +421,16 @@ export default function App() {
           {user && (
             <div className="flex items-center gap-2 bg-slate-100 px-3 py-1.5 border-2 border-slate-900 rounded-xl shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]">
               <div className="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px] font-bold">
-                {user.name.split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2)}
+                {user.name
+                  .split(" ")
+                  .map((n: string) => n[0])
+                  .join("")
+                  .toUpperCase()
+                  .slice(0, 2)}
               </div>
-              <span className="text-xs font-bold text-slate-800 hidden sm:inline">{user.name}</span>
+              <span className="text-xs font-bold text-slate-800 hidden sm:inline">
+                {user.name}
+              </span>
             </div>
           )}
 
