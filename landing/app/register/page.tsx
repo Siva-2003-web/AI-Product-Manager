@@ -6,14 +6,8 @@ import {
   ArrowRight,
   Eye,
   EyeOff,
-  Brain,
-  Code,
-  Database,
-  Layout,
-  PenTool,
-  Server,
-  ShieldCheck,
-  Terminal,
+  Cpu,
+  Activity,
   Check,
   Loader2,
 } from "lucide-react";
@@ -127,6 +121,149 @@ function FloatingShapes() {
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-[78%] left-[22%] w-3 h-3 rounded-full bg-purple-500/30"
       />
+    </div>
+  );
+}
+
+/* ─── Quantum Connection Network (Left Panel) ─── */
+function QuantumNetwork() {
+  const [syncPercentage, setSyncPercentage] = useState(94.2);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSyncPercentage((prev) => {
+        const next = prev + (Math.random() * 0.4 - 0.2);
+        return Math.min(100, Math.max(90, parseFloat(next.toFixed(1))));
+      });
+    }, 1500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="relative w-full max-w-sm mx-auto aspect-square flex items-center justify-center">
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-[5%] rounded-full border border-dashed border-emerald-500/20"
+      />
+
+      <motion.div
+        animate={{ rotate: -360 }}
+        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-[20%] rounded-full border border-cyan-500/10"
+        style={{
+          boxShadow:
+            "0 0 25px rgba(56, 189, 248, 0.05), inset 0 0 25px rgba(56, 189, 248, 0.05)",
+        }}
+      />
+
+      <motion.div
+        animate={{ scale: [0.95, 1.05, 0.95] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute inset-[35%] rounded-full border border-emerald-500/30"
+      />
+
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        viewBox="0 0 400 400"
+      >
+        {[
+          { x: 80, y: 120, label: "SECURE" },
+          { x: 320, y: 100, label: "AUTH" },
+          { x: 70, y: 280, label: "SYNC" },
+          { x: 330, y: 260, label: "ENCRYPT" },
+        ].map((node, i) => (
+          <g key={i}>
+            <motion.line
+              x1={node.x}
+              y1={node.y}
+              x2="200"
+              y2="200"
+              stroke="rgba(52, 211, 153, 0.2)"
+              strokeWidth="1.5"
+              strokeDasharray="5, 5"
+              animate={{ strokeDashoffset: [0, -20] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            />
+            <motion.line
+              x1={node.x}
+              y1={node.y}
+              x2="200"
+              y2="200"
+              stroke="url(#pulseGrad)"
+              strokeWidth="2.5"
+              animate={{
+                x1: [node.x, 200],
+                y1: [node.y, 200],
+                opacity: [0, 1, 0],
+              }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                delay: i * 0.6,
+                ease: "easeInOut",
+              }}
+            />
+            <circle
+              cx={node.x}
+              cy={node.y}
+              r="6"
+              fill="#10B981"
+              opacity="0.3"
+            />
+            <motion.circle
+              cx={node.x}
+              cy={node.y}
+              r="3.5"
+              fill="#10B981"
+              animate={{ scale: [1, 1.6, 1], opacity: [0.6, 1, 0.6] }}
+              transition={{ duration: 2, repeat: Infinity, delay: i * 0.4 }}
+            />
+            <text
+              x={node.x}
+              y={node.y - 12}
+              textAnchor="middle"
+              fill="#94A3B8"
+              fontSize="9"
+              fontWeight="600"
+              letterSpacing="0.05em"
+              opacity="0.7"
+            >
+              {node.label}
+            </text>
+          </g>
+        ))}
+
+        <defs>
+          <linearGradient id="pulseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#38BDF8" stopOpacity="0" />
+            <stop offset="50%" stopColor="#34D399" stopOpacity="1" />
+            <stop offset="100%" stopColor="#10B981" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <div className="relative z-10 w-20 h-20 rounded-2xl flex items-center justify-center border border-emerald-500/40 bg-[linear-gradient(135deg,rgba(52,211,153,0.15),rgba(56,189,248,0.1))] shadow-[0_0_35px_rgba(52,211,153,0.25)]">
+        <Cpu className="w-10 h-10 text-emerald-400" />
+        <motion.div
+          animate={{ scale: [1, 1.25, 1], opacity: [0.4, 0, 0.4] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute inset-0 rounded-2xl border-2 border-emerald-400"
+        />
+      </div>
+
+      <div className="absolute bottom-4 flex flex-col items-center">
+        <motion.div
+          animate={{ opacity: [0.8, 1, 0.8] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="bg-emerald-950/40 border border-emerald-500/20 px-3 py-1.5 rounded-full flex items-center gap-2 backdrop-blur-md"
+        >
+          <Activity className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+          <span className="text-[11px] font-mono text-emerald-300 font-semibold tracking-wider">
+            SECURE LINK SYNCED: {syncPercentage}%
+          </span>
+        </motion.div>
+      </div>
     </div>
   );
 }
@@ -293,144 +430,6 @@ function PasswordStrength({ password }: { password: string }) {
   );
 }
 
-/* ─── Orbiting Agent Icons (Left Panel) ─── */
-const AI_AGENTS = [
-  {
-    icon: PenTool,
-    label: "Product Manager",
-    positionClass: "top-4 left-1/2 -translate-x-1/2",
-    toneClass: "text-sky-400",
-    toneSoftClass:
-      "bg-sky-400/15 border-sky-400/30 shadow-[0_0_20px_rgba(56,189,248,0.18)]",
-  },
-  {
-    icon: Layout,
-    label: "UI/UX Designer",
-    positionClass: "top-1/4 right-4 -translate-y-1/2",
-    toneClass: "text-pink-400",
-    toneSoftClass:
-      "bg-pink-400/15 border-pink-400/30 shadow-[0_0_20px_rgba(244,114,182,0.18)]",
-  },
-  {
-    icon: Code,
-    label: "Frontend Dev",
-    positionClass: "bottom-1/4 right-6 translate-y-1/2",
-    toneClass: "text-amber-400",
-    toneSoftClass:
-      "bg-amber-400/15 border-amber-400/30 shadow-[0_0_20px_rgba(251,191,36,0.18)]",
-  },
-  {
-    icon: Terminal,
-    label: "Backend Dev",
-    positionClass: "bottom-4 left-1/2 -translate-x-1/2",
-    toneClass: "text-emerald-400",
-    toneSoftClass:
-      "bg-emerald-400/15 border-emerald-400/30 shadow-[0_0_20px_rgba(52,211,153,0.18)]",
-  },
-  {
-    icon: Database,
-    label: "DB Architect",
-    positionClass: "bottom-1/4 left-6 translate-y-1/2",
-    toneClass: "text-violet-400",
-    toneSoftClass:
-      "bg-violet-400/15 border-violet-400/30 shadow-[0_0_20px_rgba(167,139,250,0.18)]",
-  },
-  {
-    icon: Server,
-    label: "DevOps Engineer",
-    positionClass: "top-1/4 left-4 -translate-y-1/2",
-    toneClass: "text-orange-400",
-    toneSoftClass:
-      "bg-orange-400/15 border-orange-400/30 shadow-[0_0_20px_rgba(251,146,60,0.18)]",
-  },
-  {
-    icon: ShieldCheck,
-    label: "QA Specialist",
-    positionClass: "top-1/2 left-6 -translate-y-1/2",
-    toneClass: "text-rose-400",
-    toneSoftClass:
-      "bg-rose-400/15 border-rose-400/30 shadow-[0_0_20px_rgba(248,113,113,0.18)]",
-  },
-];
-
-function AgentOrbit() {
-  const [activeAgent, setActiveAgent] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveAgent((prev) => (prev + 1) % AI_AGENTS.length);
-    }, 2200);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="relative w-full max-w-sm mx-auto aspect-square flex items-center justify-center">
-      {/* Central brain */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-[30%] rounded-full border border-purple-500/20"
-      />
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-[15%] rounded-full border border-cyan-500/10"
-      />
-      <div className="relative z-10 w-20 h-20 rounded-2xl flex items-center justify-center border border-purple-500/40 bg-[linear-gradient(135deg,rgba(124,58,237,0.2),rgba(56,189,248,0.1))] shadow-[0_0_40px_rgba(124,58,237,0.2)]">
-        <Brain className="w-10 h-10 text-purple-400" />
-      </div>
-
-      {/* Orbiting agents */}
-      {AI_AGENTS.map((agent, index) => {
-        const Icon = agent.icon;
-        const isActive = index === activeAgent;
-
-        return (
-          <motion.div
-            key={agent.label}
-            className={`absolute flex items-center justify-center cursor-pointer ${agent.positionClass}`}
-            animate={{
-              scale: isActive ? 1.3 : 1,
-              opacity: isActive ? 1 : 0.5,
-            }}
-            transition={{ duration: 0.3 }}
-            onClick={() => setActiveAgent(index)}
-          >
-            <div
-              className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-all duration-300 ${
-                isActive
-                  ? agent.toneSoftClass
-                  : "bg-white/5 border-white/10 shadow-none"
-              }`}
-            >
-              <Icon className={`w-5 h-5 ${agent.toneClass}`} />
-            </div>
-          </motion.div>
-        );
-      })}
-
-      {/* Active agent label */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeAgent}
-          initial={{ opacity: 0, y: 5 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -5 }}
-          transition={{ duration: 0.2 }}
-          className="absolute bottom-4 text-center"
-        >
-          <p className="text-white font-semibold text-sm">
-            {AI_AGENTS[activeAgent].label}
-          </p>
-          <p className="text-slate-500 text-xs">
-            Agent #{activeAgent + 1} — Online
-          </p>
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  );
-}
-
 /* ─── Main Registration Page ─── */
 export default function RegisterPage() {
   const [form, setForm] = useState({
@@ -548,10 +547,10 @@ export default function RegisterPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-5xl font-bold text-white mb-6 leading-[1.15] tracking-tight"
           >
-            Build the future
+            Access your
             <br />
-            <span className="bg-[linear-gradient(90deg,#A78BFA,#38BDF8)] bg-clip-text text-transparent">
-              with AI agents.
+            <span className="bg-[linear-gradient(90deg,#34D399,#38BDF8)] bg-clip-text text-transparent">
+              command center.
             </span>
           </motion.h2>
           <motion.p
@@ -560,17 +559,17 @@ export default function RegisterPage() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-slate-400 text-lg leading-relaxed mb-10"
           >
-            Seven autonomous AI specialists collaborate in real-time to
-            transform your product ideas into production-ready software.
+            Enter your credentials to connect with your autonomous AI
+            development squad and monitor active builds.
           </motion.p>
 
-          {/* Agent orbit visualization */}
+          {/* Quantum connection network */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.6 }}
           >
-            <AgentOrbit />
+            <QuantumNetwork />
           </motion.div>
         </div>
       </div>
