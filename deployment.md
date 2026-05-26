@@ -83,9 +83,11 @@ Deploy only the `landing/` folder to Vercel.
 
 Set these in the Vercel dashboard if the landing app needs them:
 
-- `MONGODB_URI`
+- `MONGODB_URI` - use a full Atlas connection string, for example `mongodb+srv://<user>:<password>@<cluster>.mongodb.net/<database>?retryWrites=true&w=majority`
 - `JWT_SECRET`
 - `NEXT_PUBLIC_API_URL` only if the browser frontend needs to call a separate backend URL directly
+
+Do not set `MONGODB_URI` to a short label, project id, or cluster id. The host portion must resolve to your Atlas cluster.
 
 ### Verify the frontend
 

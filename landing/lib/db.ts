@@ -18,6 +18,14 @@ const options = {
   connectTimeoutMS: 10000,
 };
 
+function formatMongoConnectionError(error: unknown): Error {
+  const message = error instanceof Error ? error.message : String(error);
+
+  return new Error(
+    `Failed to connect to MongoDB. Verify that MONGODB_URI is a valid MongoDB Atlas connection string and that the cluster host is correct. Original error: ${message}`,
+  );
+}
+
 export async function connectToDatabase(): Promise<{
   client: MongoClient;
   db: Db;
@@ -37,7 +45,11 @@ export async function connectToDatabase(): Promise<{
   } else {
     // In production mode, it's best to not use a global variable.
     client = new MongoClient(MONGODB_URI, options);
-    await client.connect();
+    try {
+      await client.connect();
+    } catch (error) {
+      throw formatMongoConnectionError(error);
+    }
   }
 
   db = client.db(DB_NAME);
