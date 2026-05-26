@@ -72,7 +72,7 @@ export default function APISpecificationTab({
           <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">
             GATEWAY PORT ROUTES
           </span>
-          <div className="space-y-2 max-h-[460px] overflow-y-auto pr-1 custom-scrollbar">
+          <div className="space-y-2 max-h-115 overflow-y-auto pr-1 custom-scrollbar">
             {apiSpec.endpoints.map((ep) => {
               const isActive = currentEndpoint.id === ep.id;
               return (
@@ -115,7 +115,7 @@ export default function APISpecificationTab({
         </div>
 
         {/* Selected Endpoint detail block */}
-        <div className="md:col-span-7 bg-white border-2 border-slate-900 rounded-3xl p-6 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] flex flex-col justify-between min-h-[460px]">
+        <div className="md:col-span-7 bg-white border-2 border-slate-900 rounded-3xl p-6 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] flex flex-col justify-between min-h-115">
           <div>
             <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
               <div className="flex items-center gap-2">
@@ -229,7 +229,7 @@ export default function APISpecificationTab({
                 <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 font-mono">
                   Sample Request Body
                 </span>
-                <pre className="bg-slate-50 border border-slate-200 rounded-xl p-3 text-[11px] font-mono overflow-x-auto text-slate-700 max-h-[140px] custom-scrollbar">
+                <pre className="bg-slate-50 border border-slate-200 rounded-xl p-3 text-[11px] font-mono overflow-x-auto text-slate-700 max-h-35 custom-scrollbar">
                   {currentEndpoint.requestBody}
                 </pre>
               </div>
@@ -241,7 +241,7 @@ export default function APISpecificationTab({
             <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 font-mono">
               Response Schema (200 OK)
             </span>
-            <pre className="bg-indigo-950/90 text-indigo-100 border-2 border-slate-900 rounded-xl p-4 text-[10px] font-mono overflow-x-auto max-h-[160px] custom-scrollbar shadow-inner">
+            <pre className="bg-indigo-950/90 text-indigo-100 border-2 border-slate-900 rounded-xl p-4 text-[10px] font-mono overflow-x-auto max-h-40 custom-scrollbar shadow-inner">
               {currentEndpoint.successResponse}
             </pre>
           </div>
