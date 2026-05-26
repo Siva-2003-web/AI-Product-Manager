@@ -106,6 +106,7 @@ It also supports:
 | `GEMINI_API_KEY` | Yes      | Gemini access key used by the planning API                          |
 | `PORT`           | No       | Port used by the Express server; Render provides this automatically |
 | `NODE_ENV`       | No       | Usually set to `production` on deploy                               |
+| `VITE_LANDING_LOGIN_URL` | No | Full landing app login URL used after logout in the root app |
 
 ### Landing app / Next.js auth app
 

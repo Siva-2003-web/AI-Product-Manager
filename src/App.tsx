@@ -117,6 +117,26 @@ function getProgressWidthClass(progress: number): string {
   return PROGRESS_WIDTH_CLASSES[bucket] ?? "w-0";
 }
 
+function getLandingLoginUrl(): string {
+  const configured = import.meta.env.VITE_LANDING_LOGIN_URL?.trim().replace(
+    /\/$/, 
+    "",
+  );
+
+  if (typeof document !== "undefined") {
+    const referrer = document.referrer.trim();
+    if (referrer && !referrer.startsWith(window.location.origin)) {
+      return referrer;
+    }
+  }
+
+  if (typeof window !== "undefined" && window.location.port === "3000") {
+    return "http://localhost:3001/login";
+  }
+
+  return configured || "http://localhost:3001/login";
+}
+
 export default function App() {
   const [project, setProject] = useState<ProjectState | null>(null);
   const [activeTab, setActiveTab] = useState<string>("overview");
@@ -197,7 +217,7 @@ export default function App() {
     setBuildProgress(null);
     setCurrentBuildStep(null);
     setUser(null);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.location.href = getLandingLoginUrl();
   };
 
   // Sync state to local storage
