@@ -155,58 +155,51 @@ function QuantumNetwork() {
   }, []);
 
   return (
-    <div className="relative w-full max-w-sm mx-auto aspect-square flex items-center justify-center">
-      {/* Outer Rotating Dotted Circle */}
+    <div className="relative w-full max-w-xl mx-auto aspect-square flex items-center justify-center">
       <motion.div
         animate={{ rotate: 360 }}
-        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-[5%] rounded-full border border-dashed border-emerald-500/20"
+        transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-[8%] rounded-full border border-dashed border-cyan-300/20"
       />
 
-      {/* Middle Glowing Tech Ring */}
       <motion.div
         animate={{ rotate: -360 }}
         transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
         className="absolute inset-[20%] rounded-full border border-cyan-500/10"
         style={{
           boxShadow:
-            "0 0 25px rgba(56, 189, 248, 0.05), inset 0 0 25px rgba(56, 189, 248, 0.05)",
+            "0 0 34px rgba(34, 211, 238, 0.08), inset 0 0 24px rgba(34, 211, 238, 0.05)",
         }}
       />
 
-      {/* Inner Pulses */}
       <motion.div
-        animate={{ scale: [0.95, 1.05, 0.95] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute inset-[35%] rounded-full border border-emerald-500/30"
+        animate={{ scale: [0.95, 1.08, 0.95] }}
+        transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute inset-[34%] rounded-full border border-emerald-400/25"
       />
 
-      {/* Futuristic Grid Nodes */}
       <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
+        className="absolute inset-0 h-full w-full pointer-events-none"
         viewBox="0 0 400 400"
       >
-        {/* Neural Pathways (lines to center 200, 200) */}
         {[
-          { x: 80, y: 120, label: "SECURE" },
-          { x: 320, y: 100, label: "AUTH" },
-          { x: 70, y: 280, label: "SYNC" },
-          { x: 330, y: 260, label: "ENCRYPT" },
+          { x: 92, y: 116, label: "INPUT" },
+          { x: 316, y: 110, label: "VERIFY" },
+          { x: 88, y: 292, label: "SYNC" },
+          { x: 314, y: 284, label: "LOCK" },
         ].map((node, i) => (
-          <g key={i}>
-            {/* Pathway Line */}
+          <g key={node.label}>
             <motion.line
               x1={node.x}
               y1={node.y}
               x2="200"
               y2="200"
-              stroke="rgba(52, 211, 153, 0.2)"
+              stroke="rgba(34, 211, 238, 0.16)"
               strokeWidth="1.5"
-              strokeDasharray="5, 5"
-              animate={{ strokeDashoffset: [0, -20] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              strokeDasharray="6, 6"
+              animate={{ strokeDashoffset: [0, -24] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
             />
-            {/* Inner Glowing Line */}
             <motion.line
               x1={node.x}
               y1={node.y}
@@ -214,81 +207,71 @@ function QuantumNetwork() {
               y2="200"
               stroke="url(#pulseGrad)"
               strokeWidth="2.5"
-              animate={{
-                x1: [node.x, 200],
-                y1: [node.y, 200],
-                opacity: [0, 1, 0],
-              }}
+              animate={{ opacity: [0, 1, 0] }}
               transition={{
-                duration: 2.5,
+                duration: 2.8,
                 repeat: Infinity,
-                delay: i * 0.6,
+                delay: i * 0.55,
                 ease: "easeInOut",
               }}
             />
-            {/* Outer Node Circle */}
             <circle
               cx={node.x}
               cy={node.y}
               r="6"
-              fill="#10B981"
-              opacity="0.3"
+              fill="#22D3EE"
+              opacity="0.22"
             />
-            {/* Pulsing Node Core */}
             <motion.circle
               cx={node.x}
               cy={node.y}
               r="3.5"
-              fill="#10B981"
-              animate={{ scale: [1, 1.6, 1], opacity: [0.6, 1, 0.6] }}
-              transition={{ duration: 2, repeat: Infinity, delay: i * 0.4 }}
+              fill="#34D399"
+              animate={{ scale: [1, 1.55, 1], opacity: [0.6, 1, 0.6] }}
+              transition={{ duration: 2, repeat: Infinity, delay: i * 0.35 }}
             />
-            {/* Node Text */}
             <text
               x={node.x}
               y={node.y - 12}
               textAnchor="middle"
-              fill="#94A3B8"
+              fill="#A7F3D0"
               fontSize="9"
               fontWeight="600"
-              letterSpacing="0.05em"
-              opacity="0.7"
+              letterSpacing="0.06em"
+              opacity="0.75"
             >
               {node.label}
             </text>
           </g>
         ))}
 
-        {/* Dynamic Gradients */}
         <defs>
           <linearGradient id="pulseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#38BDF8" stopOpacity="0" />
+            <stop offset="0%" stopColor="#22D3EE" stopOpacity="0" />
             <stop offset="50%" stopColor="#34D399" stopOpacity="1" />
-            <stop offset="100%" stopColor="#10B981" stopOpacity="0" />
+            <stop offset="100%" stopColor="#A7F3D0" stopOpacity="0" />
           </linearGradient>
         </defs>
       </svg>
 
-      {/* Central Holographic Core */}
-      <div className="relative z-10 w-20 h-20 rounded-2xl flex items-center justify-center border border-emerald-500/40 bg-[linear-gradient(135deg,rgba(52,211,153,0.15),rgba(56,189,248,0.1))] shadow-[0_0_35px_rgba(52,211,153,0.25)]">
-        <Cpu className="w-10 h-10 text-emerald-400" />
+      <div className="relative z-10 w-24 h-24 rounded-[1.75rem] flex items-center justify-center border border-cyan-300/40 bg-[linear-gradient(135deg,rgba(2,6,23,0.8),rgba(15,23,42,0.92))] shadow-[0_0_55px_rgba(34,211,238,0.18)]">
+        <Cpu className="w-11 h-11 text-cyan-300" />
         <motion.div
-          animate={{ scale: [1, 1.25, 1], opacity: [0.4, 0, 0.4] }}
+          animate={{ scale: [1, 1.24, 1], opacity: [0.45, 0, 0.45] }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-0 rounded-2xl border-2 border-emerald-400"
+          className="absolute inset-0 rounded-[1.75rem] border-2 border-cyan-300"
         />
       </div>
 
-      {/* Tech Readout Overlay */}
-      <div className="absolute bottom-4 flex flex-col items-center">
+      <div className="absolute bottom-2 flex flex-col items-center">
         <motion.div
           animate={{ opacity: [0.8, 1, 0.8] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="bg-emerald-950/40 border border-emerald-500/20 px-3 py-1.5 rounded-full flex items-center gap-2 backdrop-blur-md"
+          className="bg-cyan-950/45 border border-cyan-500/20 px-3 py-1.5 rounded-full flex items-center gap-2 backdrop-blur-md"
         >
-          <Activity className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-          <span className="text-[11px] font-mono text-emerald-300 font-semibold tracking-wider">
-            SECURE LINK SYNCED: {syncPercentage}%
+          <Activity className="w-3.5 h-3.5 text-cyan-300 animate-pulse" />
+          <span className="text-[11px] font-mono text-cyan-200 font-semibold tracking-wider">
+            ACCESS ROUTE: {syncPercentage}%
           </span>
         </motion.div>
       </div>
@@ -457,7 +440,7 @@ export default function LoginPage() {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen flex relative overflow-hidden bg-[radial-gradient(circle_at_top_left,#03131f_0%,#020617_42%,#01020a_100%)]">
+    <div className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,#03131f_0%,#020617_42%,#01020a_100%)]">
       {/* Background effects */}
       <ParticleField />
       <BackgroundWaves />
@@ -483,220 +466,232 @@ export default function LoginPage() {
       {/* Grid overlay */}
       <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[linear-gradient(rgba(45,212,191,0.35)_1px,transparent_1px),linear-gradient(90deg,rgba(45,212,191,0.35)_1px,transparent_1px)] bg-size-[60px_60px]" />
 
-      {/* ─── LEFT: Visual Panel ─── */}
-      <div className="hidden lg:flex lg:w-[45%] items-center justify-center relative z-10 p-12">
-        <div className="max-w-md w-full">
-          {/* Back to Home Link */}
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors duration-200 mb-12 group text-sm font-medium"
-          >
-            <ArrowRight className="w-4 h-4 rotate-180 group-hover:-translate-x-1 transition-transform" />
-            Back to Home
-          </Link>
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl items-center px-6 py-10 sm:px-10 lg:px-12">
+        <div className="grid w-full items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+          {/* Left visual panel */}
+          <div className="hidden lg:flex flex-col justify-center pr-8 xl:pr-12">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors duration-200 mb-12 group text-sm font-medium self-start"
+            >
+              <ArrowRight className="w-4 h-4 rotate-180 group-hover:-translate-x-1 transition-transform" />
+              Back to Home
+            </Link>
 
-          {/* Heading */}
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl font-bold text-white mb-6 leading-[1.15] tracking-tight"
-          >
-            Access your
-            <br />
-            <span className="bg-[linear-gradient(90deg,#2DD4BF,#22D3EE,#A7F3D0)] bg-clip-text text-transparent">
-              command center.
-            </span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-slate-400 text-lg leading-relaxed mb-10"
-          >
-            Enter your credentials to connect with your autonomous AI
-            development squad and monitor active builds.
-          </motion.p>
-
-          {/* Quantum connection network */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.6 }}
-          >
-            <QuantumNetwork />
-          </motion.div>
-        </div>
-        <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full max-w-sm"
-        >
-          {/* Card outer glow */}
-          <div className="absolute -inset-1 rounded-3xl opacity-35 blur-xl bg-[linear-gradient(135deg,rgba(45,212,191,0.32),rgba(34,211,238,0.24),rgba(167,243,208,0.12))]" />
-
-          {/* Glassmorphism card */}
-          <div className="relative rounded-3xl border border-cyan-300/10 p-6 sm:p-8 backdrop-blur-xl bg-[linear-gradient(135deg,rgba(2,6,23,0.88),rgba(8,15,28,0.95))] shadow-[0_0_80px_rgba(34,211,238,0.12)]">
-            {/* Mobile Back to Home */}
-            <div className="lg:hidden mb-6">
-              <Link
-                href="/"
-                className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors duration-200 group text-sm font-medium"
-              >
-                <ArrowRight className="w-4 h-4 rotate-180 group-hover:-translate-x-1 transition-transform" />
-                Back to Home
-              </Link>
-            </div>
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="mb-6"
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-5xl xl:text-6xl font-bold text-white mb-6 leading-[1.04] tracking-tight max-w-xl"
             >
-              <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2 tracking-tight">
-                Welcome back
-              </h1>
-              <p className="text-slate-400 text-xs sm:text-sm">
-                Log in to your AI command center
-              </p>
-            </motion.div>
+              Access your
+              <br />
+              <span className="bg-[linear-gradient(90deg,#2DD4BF,#22D3EE,#A7F3D0)] bg-clip-text text-transparent">
+                command center.
+              </span>
+            </motion.h2>
 
-            {/* Server error */}
-            <AnimatePresence>
-              {serverError && (
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-slate-400 text-lg xl:text-xl leading-relaxed mb-10 max-w-lg"
+            >
+              Enter your credentials to connect with your autonomous AI
+              development squad and monitor active builds.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.6 }}
+              className="w-full"
+            >
+              <QuantumNetwork />
+            </motion.div>
+          </div>
+
+          {/* Login form */}
+          <div className="flex justify-center lg:justify-end">
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full max-w-md xl:max-w-lg"
+            >
+              {/* Card outer glow */}
+              <div className="absolute -inset-1 rounded-4xl opacity-35 blur-xl bg-[linear-gradient(135deg,rgba(45,212,191,0.32),rgba(34,211,238,0.24),rgba(167,243,208,0.12))]" />
+
+              {/* Glassmorphism card */}
+              <div className="relative rounded-4xl border border-cyan-300/10 p-6 sm:p-8 backdrop-blur-xl bg-[linear-gradient(135deg,rgba(2,6,23,0.88),rgba(8,15,28,0.95))] shadow-[0_0_80px_rgba(34,211,238,0.12)]">
+                {/* Mobile Back to Home */}
+                <div className="lg:hidden mb-6">
+                  <Link
+                    href="/"
+                    className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors duration-200 group text-sm font-medium"
+                  >
+                    <ArrowRight className="w-4 h-4 rotate-180 group-hover:-translate-x-1 transition-transform" />
+                    Back to Home
+                  </Link>
+                </div>
+
                 <motion.div
-                  initial={{ opacity: 0, y: -10, height: 0 }}
-                  animate={{ opacity: 1, y: 0, height: "auto" }}
-                  exit={{ opacity: 0, y: -10, height: 0 }}
-                  className="mb-6 p-3 rounded-xl border text-sm bg-rose-500/10 border-rose-500/30 text-rose-400"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="mb-6"
                 >
-                  {serverError}
+                  <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2 tracking-tight">
+                    Welcome back
+                  </h1>
+                  <p className="text-slate-400 text-xs sm:text-sm">
+                    Log in to your AI command center
+                  </p>
                 </motion.div>
-              )}
-            </AnimatePresence>
 
-            {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-3">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                <NeonInput
-                  label="Email"
-                  type="email"
-                  placeholder="jane@company.com"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  error={errors.email}
-                  autoComplete="email"
-                />
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-                className="relative"
-              >
-                <NeonInput
-                  label="Password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
-                  value={form.password}
-                  onChange={(e) =>
-                    setForm({ ...form, password: e.target.value })
-                  }
-                  error={errors.password}
-                  autoComplete="current-password"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-9.5 text-slate-500 hover:text-slate-300 cursor-pointer transition-colors duration-200"
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                >
-                  {showPassword ? (
-                    <EyeOff className="w-4 h-4" />
-                  ) : (
-                    <Eye className="w-4 h-4" />
+                {/* Server error */}
+                <AnimatePresence>
+                  {serverError && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, height: 0 }}
+                      animate={{ opacity: 1, y: 0, height: "auto" }}
+                      exit={{ opacity: 0, y: -10, height: 0 }}
+                      className="mb-6 p-3 rounded-xl border text-sm bg-rose-500/10 border-rose-500/30 text-rose-400"
+                    >
+                      {serverError}
+                    </motion.div>
                   )}
-                </button>
-              </motion.div>
+                </AnimatePresence>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="flex items-center justify-between"
-              >
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                    className="w-4 h-4 rounded bg-slate-800 border-cyan-700 text-cyan-400 focus:ring-cyan-400/50 cursor-pointer"
-                  />
-                  <span className="text-sm text-slate-300">Remember me</span>
-                </label>
-                <a
-                  href="#"
-                  className="text-sm text-cyan-300 hover:text-cyan-200 cursor-pointer transition-colors duration-200"
+                {/* Form */}
+                <form onSubmit={handleSubmit} className="space-y-3">
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <NeonInput
+                      label="Email"
+                      type="email"
+                      placeholder="jane@company.com"
+                      value={form.email}
+                      onChange={(e) =>
+                        setForm({ ...form, email: e.target.value })
+                      }
+                      error={errors.email}
+                      autoComplete="email"
+                    />
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="relative"
+                  >
+                    <NeonInput
+                      label="Password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Enter your password"
+                      value={form.password}
+                      onChange={(e) =>
+                        setForm({ ...form, password: e.target.value })
+                      }
+                      error={errors.password}
+                      autoComplete="current-password"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-9.5 text-slate-500 hover:text-slate-300 cursor-pointer transition-colors duration-200"
+                      aria-label={
+                        showPassword ? "Hide password" : "Show password"
+                      }
+                    >
+                      {showPassword ? (
+                        <EyeOff className="w-4 h-4" />
+                      ) : (
+                        <Eye className="w-4 h-4" />
+                      )}
+                    </button>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.6 }}
+                    className="flex items-center justify-between"
+                  >
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={rememberMe}
+                        onChange={(e) => setRememberMe(e.target.checked)}
+                        className="w-4 h-4 rounded bg-slate-800 border-cyan-700 text-cyan-400 focus:ring-cyan-400/50 cursor-pointer"
+                      />
+                      <span className="text-sm text-slate-300">
+                        Remember me
+                      </span>
+                    </label>
+                    <a
+                      href="#"
+                      className="text-sm text-cyan-300 hover:text-cyan-200 cursor-pointer transition-colors duration-200"
+                    >
+                      Forgot password?
+                    </a>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.7 }}
+                  >
+                    <NeonButton type="submit" loading={loading}>
+                      Log In
+                      <ArrowRight className="w-5 h-5" />
+                    </NeonButton>
+                  </motion.div>
+                </form>
+
+                {/* Divider */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.8 }}
+                  className="mt-6 text-center"
                 >
-                  Forgot password?
-                </a>
-              </motion.div>
+                  <p className="text-slate-500 text-sm">
+                    Don&apos;t have an account?{" "}
+                    <Link
+                      href="/register"
+                      className="text-cyan-300 hover:text-cyan-200 font-medium cursor-pointer transition-colors duration-200"
+                    >
+                      Create one free
+                    </Link>
+                  </p>
+                </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-              >
-                <NeonButton type="submit" loading={loading}>
-                  Log In
-                  <ArrowRight className="w-5 h-5" />
-                </NeonButton>
-              </motion.div>
-            </form>
-
-            {/* Divider */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              className="mt-6 text-center"
-            >
-              <p className="text-slate-500 text-sm">
-                Don&apos;t have an account?{" "}
-                <Link
-                  href="/register"
-                  className="text-cyan-300 hover:text-cyan-200 font-medium cursor-pointer transition-colors duration-200"
+                {/* Trust badges */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.9 }}
+                  className="mt-6 flex items-center justify-center gap-6"
                 >
-                  Create one free
-                </Link>
-              </p>
-            </motion.div>
-
-            {/* Trust badges */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.9 }}
-              className="mt-6 flex items-center justify-center gap-6"
-            >
-              <div className="flex items-center gap-1.5 text-xs text-slate-400">
-                <Shield className="w-3.5 h-3.5" />
-                <span>Encrypted</span>
-              </div>
-              <div className="w-1 h-1 rounded-full bg-slate-700" />
-              <div className="flex items-center gap-1.5 text-xs text-slate-400">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>SOC 2</span>
+                  <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                    <Shield className="w-3.5 h-3.5" />
+                    <span>Encrypted</span>
+                  </div>
+                  <div className="w-1 h-1 rounded-full bg-slate-700" />
+                  <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>SOC 2</span>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
