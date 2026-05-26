@@ -1,0 +1,1 @@
+﻿{"user":{"id":"6a15209edf43f05ee5ce2263","name":"Test User","email":"test.user+cli@example.com","createdAt":"2026-05-26T04:25:02.453Z"}}

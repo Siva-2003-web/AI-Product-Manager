@@ -15,14 +15,14 @@ export async function POST(request: NextRequest) {
     if (!name || !email || !password) {
       return NextResponse.json(
         { error: "Name, email, and password are required." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (password.length < 8) {
       return NextResponse.json(
         { error: "Password must be at least 8 characters." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     if (!emailRegex.test(email)) {
       return NextResponse.json(
         { error: "Please provide a valid email address." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -41,12 +41,14 @@ export async function POST(request: NextRequest) {
 
     // Check if user exists
     console.log("[REGISTER] Checking existing user...");
-    const existingUser = await usersCollection.findOne({ email: email.toLowerCase() });
+    const existingUser = await usersCollection.findOne({
+      email: email.toLowerCase(),
+    });
     console.log("[REGISTER] Existing user check complete.");
     if (existingUser) {
       return NextResponse.json(
         { error: "An account with this email already exists." },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
@@ -83,7 +85,7 @@ export async function POST(request: NextRequest) {
         },
         message: "Account created successfully.",
       },
-      { status: 201 }
+      { status: 201 },
     );
 
     response.cookies.set("token", token, {
@@ -99,7 +101,7 @@ export async function POST(request: NextRequest) {
     console.error("Registration error:", error);
     return NextResponse.json(
       { error: "An unexpected error occurred. Please try again." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     if (!email || !password) {
       return NextResponse.json(
         { error: "Email and password are required." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -22,11 +22,13 @@ export async function POST(request: NextRequest) {
     const usersCollection = db.collection("users");
 
     // Find user
-    const user = await usersCollection.findOne({ email: email.toLowerCase().trim() });
+    const user = await usersCollection.findOne({
+      email: email.toLowerCase().trim(),
+    });
     if (!user) {
       return NextResponse.json(
         { error: "Invalid email or password." },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -35,7 +37,7 @@ export async function POST(request: NextRequest) {
     if (!isPasswordValid) {
       return NextResponse.json(
         { error: "Invalid email or password." },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -69,7 +71,7 @@ export async function POST(request: NextRequest) {
     console.error("Login error:", error);
     return NextResponse.json(
       { error: "An unexpected error occurred. Please try again." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
